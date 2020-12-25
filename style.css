@@ -1,0 +1,55 @@
+.cont {
+  height: 200px;
+  position: relative;
+}
+
+.button {
+  margin: 0;
+  top: 50%;
+  position: relative;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin-left:  100px;
+  padding: 10px
+}
+
+.button2 {
+    margin: 0;
+    top: 50%;
+    position: relative;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left:  30px;
+    padding: 5px
+  }
+
+.lvldisplay {
+    margin-left: 100px;
+    background-color: white;
+}
+
+.handisplay {
+    font-size: 80px;
+    margin-left: 150px;
+}
+
+.smalldisplay{
+    font-size: 20px;
+    margin-left: 170px;
+    padding: 20px;
+}
+
+.smallbutton {
+    font-size: 30px;
+    margin-left: 100px;
+}
+
+.button3 {
+    margin-left: 130px;
+    padding: 20;
+    font-size: 30px;
+}
+
+.button4 {
+    margin-left: 100px;
+}

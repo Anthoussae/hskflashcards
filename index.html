@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chinese Flashcards</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+</head>
+<body>
+    <p class="handisplay" style="margin-left: 275px;" id="handisplay">欢迎！</p>
+    <button class="smallbutton" id="pindisplay" onclick="showPinyin()" style="height:100px; width:200px;">Pinyin</button>
+    <button class="smallbutton" id="engdisplay" onclick="showEnglish()" style="height:100px; width:200px;">English</button>
+    <br></br>
+    <br></br>
+    <button class="button3" style="margin-left: 220px" onclick="randomCharacter()">random character</button>
+    <p class= "smalldisplay" style="margin-left: 240px" id="lvldisplay">LEVEL: 1 （一级）</p>
+    <form id="radiolevel">
+        <input id="radio1" onclick="setLevel1()" type="radio" name="level1" value="level1" checked style="margin-left: 16%;"> Level 1
+        <input id="radio2" onclick="setLevel2()" type="radio" name="level1" value="level2"> Level 2
+        <input id="radio3" onclick="setLevel3()" type="radio" name="level1" value="level3"> Level 3
+        <input id="radio4" onclick="setLevel4()" type="radio" name="level1" value="level4"> Level 4
+        <input id="radio5" onclick="setLevel5()" type="radio" name="level1" value="level5"> Level 5
+        <input id="radio6" onclick="setLevel6()" type="radio" name="level1" value="level6"> Level 6
+    </form>
+    <br></br>
+        <button style="margin-left: 175px" class="button4" > 20 word test</button>
+        <button class="button4" > 100 word test</button>
+</body>
+<script src='main.js'></script>
+</html>
