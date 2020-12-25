@@ -5,8 +5,6 @@ fetch('HSKRAW.txt')
     subdivider(cardArray);
   })
 
-
-
 let cardArray = [];
 let temp = '';
 
