@@ -122,6 +122,7 @@ function subdivider(arr){
                 finalArray =  [];
             }
             else if (arr[i][j] === "ろ"){
+                console.log('got here');
                hsk6Array = finalArray;
                console.log("HSK6 wordlist loaded");
             }
