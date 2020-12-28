@@ -1,3 +1,6 @@
+// retrieves the text file with the full wordlist 
+// then runs the functions that process the raw text into useable arrays.
+
 fetch('HSKRAW.txt')
   .then(res => res.text())
   .then(str => {
@@ -130,9 +133,7 @@ function subdivider(arr){
     console.log("HSK6 wordlist loaded");
 }
 
-// interface design please
-// choose which HSK level.
-// choose 
+//radio butttons and startup data.
 
 let level = 1;
 let heldHan = "欢迎!";
@@ -147,102 +148,407 @@ let radioElement6 = document.getElementById("radio6");
 
 function setLevel1(){
     level = 1;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 1 （一级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
 }
 
 function setLevel2(){
     level = 2;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 2 （二级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
 }
 
 function setLevel3(){
     level = 3;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 3 （三级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
 
 }
 
 function setLevel4(){
     level = 4;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 4 （四级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
 
 }
 
 function setLevel5(){
     level = 5;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 5 （五级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
 
 }
 
 function setLevel6(){
     level = 6;
-    document.getElementById("lvldisplay").innerHTML = "LEVEL: 6 （六级）";
+    document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
 
 }
 
-//currently works fairly well but: sometimes return undefined error (dunno what's wrong, seems to be an issue with the random number generator)
+//currently essentially unused. System needs a hash code generator for the tests.
+let codeBox = [];
+let hashCode = 0;
+
+//generates a random character.
 
 function randomCharacter(){
+
+    document.getElementById("pindisplay").classList.remove('pressed');
+    document.getElementById("pindisplay").classList.remove('unpressed');
+    document.getElementById("pindisplay").classList.add('unpressed');
+    document.getElementById("engdisplay").classList.remove('pressed2');
+    document.getElementById("engdisplay").classList.remove('unpressed');
+    document.getElementById("engdisplay").classList.add('unpressed');
+   
     if (level === 1){
          let randomNumber = Math.floor(Math.random() * hsk1Array.length-1);
-         heldHan = hsk1Array[randomNumber][0];
-         heldPin = hsk1Array[randomNumber][1];
-         heldEng = hsk1Array[randomNumber][2];
-         console.log(randomNumber);
-         console.log(heldHan, heldPin, heldEng);
+         if (randomNumber < 0){
+             randomNumber = 1;
+         }
+         if (hsk1Array[randomNumber].length === 3){
+             heldHan = hsk1Array[randomNumber][0];
+             heldPin = hsk1Array[randomNumber][1];
+             heldEng = hsk1Array[randomNumber][2];
+             console.log(heldHan, heldPin, heldEng);
+             codeBox.push(randomNumber);
+
+         }
+         else {
+             console.log("error");
+         }
     }
     else if (level === 2){
         let randomNumber = Math.floor(Math.random() * hsk2Array.length-1);
+        if (randomNumber < 0){
+            randomNumber = 1;
+        }
         heldHan = hsk2Array[randomNumber][0];
         heldPin = hsk2Array[randomNumber][1];
         heldEng = hsk2Array[randomNumber][2];
         console.log(heldHan, heldPin, heldEng);
+        codeBox.push(randomNumber);
+
     }
     else if (level === 3){
         let randomNumber = Math.floor(Math.random() * hsk3Array.length-1);
+        if (randomNumber < 0){
+            randomNumber = 1;
+        }
         heldHan = hsk3Array[randomNumber][0];
         heldPin = hsk3Array[randomNumber][1];
         heldEng = hsk3Array[randomNumber][2];
         console.log(heldHan, heldPin, heldEng);
+        codeBox.push(randomNumber);
+
     }
     else if (level === 4){
         let randomNumber = Math.floor(Math.random() * hsk4Array.length-1);
+        if (randomNumber < 0){
+            randomNumber = 1;
+        }
         heldHan = hsk4Array[randomNumber][0];
         heldPin = hsk4Array[randomNumber][1];
         heldEng = hsk4Array[randomNumber][2];
         console.log(heldHan, heldPin, heldEng);
+        codeBox.push(randomNumber);
+
     }
     else if (level === 5){
         let randomNumber = Math.floor(Math.random() * hsk5Array.length-1);
+        if (randomNumber < 0){
+            randomNumber = 1;
+        }
         heldHan = hsk5Array[randomNumber][0];
         heldPin = hsk5Array[randomNumber][1];
         heldEng = hsk5Array[randomNumber][2];
         console.log(heldHan, heldPin, heldEng);
+        codeBox.push(randomNumber);
+
     }
     else if (level === 6){
         let randomNumber = Math.floor(Math.random() * hsk6Array.length-1);
+        if (randomNumber < 0){
+            randomNumber = 1;
+        }
         heldHan = hsk6Array[randomNumber][0];
         heldPin = hsk6Array[randomNumber][1];
         heldEng = hsk6Array[randomNumber][2];
         console.log(heldHan, heldPin, heldEng);
+        codeBox.push(randomNumber);
+
     }
     else{
         console.log("error");
     }
     document.getElementById("handisplay").innerHTML = heldHan;
-    document.getElementById("pindisplay").innerHTML = "Show Pinyin";
-    document.getElementById("engdisplay").innerHTML = "Show English";
+    document.getElementById("pindisplay").innerHTML = "Pinyin";
+    document.getElementById("engdisplay").innerHTML = "English";
+    if (codeBox.length > 200){
+        codeBox = [];
+    }
 }
 
+// these functions govern the pinyin / english reveal buttons.
+
 function showPinyin(){
+    document.getElementById("pindisplay").classList.remove('pressed');
+    document.getElementById("pindisplay").classList.remove('unpressed');
+    document.getElementById('pindisplay').classList.add('pressed');
     document.getElementById("pindisplay").innerHTML = heldPin;
-    // document.getElementById("pindisplay").style.background = "white";
-    // document.getElementById("pindisplay").style.outlineColor = "white";
-    // document.getElementById("pindisplay").style.outlineWidth = "0px";
 }
 
 function showEnglish(){
     document.getElementById("engdisplay").innerHTML = heldEng;
-    // document.getElementById("engdisplay").style.background = "white";
-    // document.getElementById("engdisplay").style.outlineColor = "white";
+    document.getElementById("engdisplay").classList.remove('pressed2');
+    document.getElementById("engdisplay").classList.remove('unpressed');
+    document.getElementById('engdisplay').classList.add('pressed2');
 }
 
+//exam generators.
+
+let twentyWordExam = [];
+let hundredWordExam = [];
+let currentExam;
+
+//generate 20-word and 100-word exams and sets 'current exam' to them.
+
+function genTwenty(){
+    twentyWordExam = [];
+    randomCharacter();
+    let doubled = false;
+    twentyWordExam.push([heldHan, heldPin, heldEng]);
+    while (twentyWordExam.length < 20){
+        doubled = false;
+        randomCharacter();
+        for (let i = 0; i < twentyWordExam.length; i++){
+            if (heldHan === twentyWordExam[i][0]){
+                doubled = true;
+            }
+        }
+        if (doubled === false){
+            twentyWordExam.push([heldHan, heldPin, heldEng]);
+        }
+        else {
+            console.log("reroll");
+            randomCharacter();
+            doubled = false;
+        }
+   }
+   console.log("Test built succesfully");
+   currentExam = twentyWordExam;
+   windowOpener();
+   codeBox = [];
+   hashCode = 0;
+}
+
+//actually generates 44, leaving as-is for now.
+function genHundred(){
+    hundredWordExam = [];
+    randomCharacter();
+    let doubled = false;
+    hundredWordExam.push([heldHan, heldPin, heldEng]);
+    while (hundredWordExam.length < 44){
+        doubled = false;
+        randomCharacter();
+        for (let i = 0; i < hundredWordExam.length; i++){
+            if (heldHan === hundredWordExam[i][0]){
+                doubled = true;
+            }
+        }
+        if (doubled === false){
+            hundredWordExam.push([heldHan, heldPin, heldEng]);
+        }
+        else {
+            console.log("reroll");
+            randomCharacter();
+            doubled = false;
+        }
+   }
+   console.log("Test built succesfully");
+   currentExam = hundredWordExam;
+   windowOpener();
+   codeBox = [];
+   hashCode = 0;
+}
+
+// opens a window with the test.
+
+function windowOpener() {
+    codeGenerator();
+    testCleaner();
+    var myWindow = window.open("", "MsgWindow", "width=563,height=750");
+    myWindow.document.write('');
+    myWindow.document.write(currentExam.toString());
+    console.log("Test Code: " + hashCode);
+  }
+
+  //generates the html for an exam paper and the answers.
+
+  function testCleaner(){
+    let html = '';
+    let size =  currentExam.length;
+    let category;
+    let leftIndent = 0;
+    if (size < 100){
+        category = "small";
+    }
+    else {
+        category = "large";
+    }
+    let row = '';
+    let items = 0;
+    html = html + hashCode +"&#12288;" +"&#12288;" +"&#12288;" + "Student Name: "+"&#12288;" +"&#12288;" +"&#12288;" +"&#12288;" +"&#12288;" +"&#12288;"  +"&#12288;" +"&#12288;" +"&#12288;" +"&#12288;" +"Date: " + "&#12288;" + "&#12288;" + "&#12288;"; 
+    html = html + "&#12288;" +"&#12288;" +"&#12288;";
+    if (level === 1){
+        html = html + "HSK Level 1";
+    }
+    else if (level === 2){
+        html = html + "HSK Level 2";
+    }
+    else if (level === 3){
+      html = html + "HSK Level 3";
+    }
+    else if (level === 4){
+      html = html + "HSK Level 4";
+    }
+    else if (level === 5){
+      html = html + "HSK Level 5";
+    }
+    else if (level === 6){
+      html = html + "HSK Level 6";
+    }
+    html = html + "<br></br>"
+    html = html + "<br></br>"
+
+    for (let i = 0; i < size; i++){
+        if (items === 0){
+            items = items + 1;
+            row = row + "&#12288;";
+            row =  row + "&nbsp" + "&nbsp" + (i+1) + ".";
+            if (category === "small" && (i+1) < 10){
+                row = row + "&nbsp" +  "&nbsp";
+            }
+            else if (category === "large" && (i+1) < 10){
+                row = row +  "&nbsp" +  "&nbsp" + "&nbsp" +  "&nbsp";
+            }
+            else if (category === "large" && (i+1) < 100){
+                row = row +  "&nbsp" + "&nbsp";
+            }
+            row = row + "&#12288;" + currentExam[i][0] + ":";
+            leftIndent = 4 - currentExam[i][0].length;
+            for (let n = 0; n < leftIndent; n++){
+                row = row + "&#12288;";
+            }
+        }
+        else {
+            items = 0;
+            indent = leftIndent - currentExam[i][0].length;
+            for (let j = 0; j < 10; j++){
+                row = row + "&#12288;";
+            }
+         
+            row = row + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + (i+1) + ".";
+            if (category === "small" && (i+1) < 10){
+              row = row + "&nbsp" +  "&nbsp";
+          }
+          else if (category === "large" && (i+1) < 10){
+              row = row +  "&nbsp" +  "&nbsp" + "&nbsp" +  "&nbsp";
+          }
+          else if (category === "large" && (i+1) < 100){
+              row = row +  "&nbsp" + "&nbsp";
+          }
+            row = row + "&#12288;" + currentExam[i][0] + ":";
+            row = row + "<br></br>";
+            html = html + row;
+            row = '';
+        }
+    }
+    html = html + "<br></br>";
+    html = html + hashCode +"&nbsp"+ "answersheet" + "&#12288;"+ "&#12288;"+ "&#12288;" + "feedback: james.stonelunde@berkeley.edu";
+    html = html + "<br></br>";
+    for (let i = 0; i < size; i++){
+        if (items === 0){
+            items = items + 1;
+            row = row + "&#12288;";
+            row =  row + "&nbsp" + (i+1) + ".";
+            if (category === "small" && (i+1) < 10){
+                row = row + "&nbsp" +  "&nbsp";
+            }
+            else if (category === "large" && (i+1) < 10){
+                row = row +  "&nbsp" +  "&nbsp" + "&nbsp" +  "&nbsp";
+            }
+            else if (category === "large" && (i+1) < 100){
+                row = row +  "&nbsp" + "&nbsp";
+            }
+            row = row + "&#12288;" + currentExam[i][0] + "&#12288;" + currentExam[i][1] + ", " + "&nbsp"+"&nbsp"+ currentExam[i][2];
+            leftIndent = 4 - currentExam[i][0].length;
+           
+        }
+        else {
+            items = 0;
+            indent = leftIndent - currentExam[i][0].length;
+            for (let j = 0; j < 2; j++){
+                row = row + "&#12288;";
+            }
+         
+            row = row + "&nbsp" + (i+1) + ".";
+            if (category === "small" && (i+1) < 10){
+              row = row + "&nbsp" +  "&nbsp";
+          }
+          else if (category === "large" && (i+1) < 10){
+              row = row +  "&nbsp" +  "&nbsp" + "&nbsp" +  "&nbsp";
+          }
+          else if (category === "large" && (i+1) < 100){
+              row = row +  "&nbsp" + "&nbsp";
+          }
+            row = row + "&#12288;" + currentExam[i][0] + "&#12288;" + currentExam[i][1] + ", " + "&nbsp"+"&nbsp"+ currentExam[i][2];
+            row = row + "<br></br>";
+            html = html + row;
+            row = '';
+        }
+    }
+    currentExam = html;
+}
+
+//unique test code hash generator.(nonreversible)
+function codeGenerator(){
+    hashCode = "L" + level.toString();
+    let tempVal = Math.floor(Math.random()*100000);
+    if (codeBox.length < 45){
+        hashCode = hashCode + "S";
+    }
+    else {
+        hashCode = hashCode + "B";
+    }
+    hashCode = hashCode + tempVal.toString();
+    let randomizer = Math.floor(randomNumber(0, hsk6Array.length));
+    hashCode = hashCode + hsk6Array[randomizer][0][0];
+}
+
+//generates a random number between two limits
+function randomNumber(min, max) {  
+    return Math.random() * (max - min) + min; 
+}  
+
+//let's build in-browser test-taking technology!
+
+let homePageHTML = document.getElementById("all").innerHTML;
+let testPageHTML =  "<button" + " onclick" + "=" + "'" + "exit()" + "'" + '>' +  "abandon test </button>";
+
+function onlineTestSmall(){
+    console.log("functionality pending");
+    document.getElementById("all").innerHTML= testPageHTML;
+}
+
+function onlineTestLarge(){
+    genHundred();
+    document.getElementById('printdiv').innerHTML = currentExam;
+    let printDiv= document.getElementById('printdiv');
+    let superDiv  = document.getElementById('superdiv');
+    printDiv.style.display = 'block';
+    superDiv.style.display = 'none';
+}
+
+function exit(){
+    document.getElementById("all").innerHTML = homePageHTML;
+    heldHan = "欢迎!";
+    heldPin = "huān yíng!";
+    heldEng = "Welcome!";
+    level = 1;
+    // location.reload();
+}
