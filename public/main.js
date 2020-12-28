@@ -90,7 +90,7 @@ function subdivider(arr){
                 pinyin = subtemp;
                 subtemp = '';
             }
-            else if (j === arr[i].length - 1 && arr[i][j] != "ろ"){
+            else if (j === arr[i].length - 1 && arr[i][j] != "ろ" && arr[i][j] != "ご" && arr[i][j] != "し" && arr[i][j] != "さ" && arr[i][j] != "に" && arr[i][j] != "い"){
                 spaceCounter = 0;
                 subtemp = subtemp + arr[i][j];
                 english = subtemp;
@@ -122,7 +122,6 @@ function subdivider(arr){
                 finalArray =  [];
             }
             else if (arr[i][j] === "ろ"){
-                console.log('got here');
                hsk6Array = finalArray;
                console.log("HSK6 wordlist loaded");
             }
