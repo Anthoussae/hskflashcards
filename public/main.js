@@ -82,7 +82,11 @@ function subdivider(arr){
 
         for (let j = 0; j < arr[i].length; j++) {
 
-           
+           if (i < 200 && j < 10) {
+               console.log(arr[i][j]);
+               console.log(arr[i][j] === "い");
+           }
+
 
             if (arr[i][j] === " " && spaceCounter === 0){
                 spaceCounter = spaceCounter + 1;
