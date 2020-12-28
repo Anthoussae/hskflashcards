@@ -55,6 +55,7 @@ function processor(str){
         }
     }
     console.log("processor cleared");
+    console.log(cardArray);
 }
 
 // subdivider works, sets the appropriate HSK level array to a 2D array.
@@ -83,10 +84,6 @@ function subdivider(arr){
 
         for (let j = 0; j < arr[i].length; j++) {
 
-            if (arr[i][j] === "い") {
-                console.log("found い");
-            }
-
             if (arr[i][j] === " " && spaceCounter === 0){
                 spaceCounter = spaceCounter + 1;
                 character = subtemp;
@@ -100,8 +97,6 @@ function subdivider(arr){
             }
 
             else if (j === arr[i].length - 1){
-                console.log("got here",{j,length:arr[i].length-1});
-                console.log(subtemp);
                 spaceCounter = 0;
                 english = subtemp;
                 subtemp = '';
