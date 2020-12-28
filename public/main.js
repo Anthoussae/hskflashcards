@@ -14,7 +14,6 @@ let temp = '';
 let finalArray  = [];
 
 let hsk1Array = [];
-//[chinese character, pronounciation, english wor]
 let hsk2Array = [];
 let hsk3Array = [];
 let hsk4Array = [];
@@ -53,8 +52,6 @@ function processor(str){
             temp = temp+str[i];
         }
     }
-    console.log("processor cleared");
-    console.log(cardArray);
 }
 
 // subdivider works, sets the appropriate HSK level array to a 2D array.
@@ -88,20 +85,17 @@ function subdivider(arr){
                 character = subtemp;
                 subtemp = '';
             }
-
             else if (arr[i][j] === " " && spaceCounter === 1){
                 spaceCounter = spaceCounter + 1;
                 pinyin = subtemp;
                 subtemp = '';
             }
-
             else if (j === arr[i].length - 1){
                 spaceCounter = 0;
                 subtemp = subtemp + arr[i][j];
                 english = subtemp;
                 subtemp = '';
             }
-
             else if (arr[i][j] === "い"){
                 hsk1Array = finalArray;
                 console.log("HSK1 wordlist loaded");
@@ -127,14 +121,21 @@ function subdivider(arr){
                 console.log("HSK5 wordlist loaded");
                 finalArray =  [];
             }
+            //testing line start
+            else if (arr[i+1][j] === "ろ"){
+                hsk6Array = finalArray;
+                console.log("HSK6 wordlist loaded");
+                finalArray = [];
+            }
+            //testing line end
             else {
                 subtemp = subtemp + arr[i][j];
             }
         }
     }
-    hsk6Array = finalArray;
-    console.log(hsk6Array.length);
-    console.log("HSK6 wordlist loaded");
+    // hsk6Array = finalArray;
+    // console.log(hsk6Array.length);
+    // console.log("HSK6 wordlist loaded");
 }
 
 //radio butttons and startup data.
@@ -463,7 +464,7 @@ function windowOpener() {
         }
     }
     html = html + "<br></br>";
-    html = html + hashCode +"&nbsp"+ "answersheet" + "&#12288;"+ "&#12288;"+ "&#12288;" + "feedback: james.stonelunde@berkeley.edu";
+    html = html + hashCode +"&nbsp"+ "&#12288;" +"&#12288;" + "answersheet" + "&#12288;"+ "&#12288;"+ "&#12288;" + "feedback: james.stonelunde@berkeley.edu";
     html = html + "<br></br>";
     for (let i = 0; i < size; i++){
         if (items === 0){
@@ -535,17 +536,17 @@ let homePageHTML = document.getElementById("all").innerHTML;
 let testPageHTML =  "<button" + " onclick" + "=" + "'" + "exit()" + "'" + '>' +  "abandon test </button>";
 
 function onlineTestSmall(){
-    console.log("functionality pending");
     document.getElementById("all").innerHTML= testPageHTML;
 }
 
 function onlineTestLarge(){
-    genHundred();
-    document.getElementById('printdiv').innerHTML = currentExam;
-    let printDiv= document.getElementById('printdiv');
-    let superDiv  = document.getElementById('superdiv');
-    printDiv.style.display = 'block';
-    superDiv.style.display = 'none';
+    document.getElementById("all").innerHTML= testPageHTML;
+    // genHundred();
+    // document.getElementById('printdiv').innerHTML = currentExam;
+    // let printDiv= document.getElementById('printdiv');
+    // let superDiv  = document.getElementById('superdiv');
+    // printDiv.style.display = 'block';
+    // superDiv.style.display = 'none';
 }
 
 function exit(){
