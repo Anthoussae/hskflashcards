@@ -100,6 +100,8 @@ function subdivider(arr){
             }
 
             else if (j === arr[i].length - 1){
+                console.log("got here",{j,length:arr[i].length-1});
+                console.log(arr[i][j]);
                 spaceCounter = 0;
                 english = subtemp;
                 subtemp = '';
