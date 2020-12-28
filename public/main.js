@@ -14,6 +14,7 @@ let temp = '';
 let finalArray  = [];
 
 let hsk1Array = [];
+//[chinese character, pronounciation, english wor]
 let hsk2Array = [];
 let hsk3Array = [];
 let hsk4Array = [];
@@ -58,7 +59,7 @@ function processor(str){
 
 // subdivider works, sets the appropriate HSK level array to a 2D array.
 // pulls data from cardArray.
-// each subarray is in the format [hanzi, pinyin, english].
+// array is in the format [[hanzi, pinyin, english],[hanzi, pinyin, english],[hanzi, pinyin, english],[hanzi, pinyin, english]].
 
 function subdivider(arr){
 
@@ -82,11 +83,9 @@ function subdivider(arr){
 
         for (let j = 0; j < arr[i].length; j++) {
 
-           if (i < 200 && j < 10) {
-               console.log(arr[i][j]);
-               console.log(arr[i][j] === "い");
-           }
-
+            if (arr[i][j] === "い") {
+                console.log("found い");
+            }
 
             if (arr[i][j] === " " && spaceCounter === 0){
                 spaceCounter = spaceCounter + 1;
