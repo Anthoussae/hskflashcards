@@ -53,6 +53,7 @@ function processor(str){
             temp = temp+str[i];
         }
     }
+    console.log("processor cleared");
 }
 
 // subdivider works, sets the appropriate HSK level array to a 2D array.
@@ -80,6 +81,8 @@ function subdivider(arr){
         }
 
         for (let j = 0; j < arr[i].length; j++) {
+
+           
 
             if (arr[i][j] === " " && spaceCounter === 0){
                 spaceCounter = spaceCounter + 1;
@@ -130,6 +133,7 @@ function subdivider(arr){
         }
     }
     hsk6Array = finalArray;
+    console.log(hsk6Array.length);
     console.log("HSK6 wordlist loaded");
 }
 
