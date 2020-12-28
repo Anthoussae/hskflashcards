@@ -133,6 +133,7 @@ function subdivider(arr){
             }
         }
     }
+    console.log("wordlist sizes: ", hsk1Array.length, hsk2Array.length, hsk3Array.length, hsk4Array.length, hsk5Array.length, hsk6Array.length);
     // hsk6Array = finalArray;
     // console.log(hsk6Array.length);
     // console.log("HSK6 wordlist loaded");
