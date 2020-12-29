@@ -48,7 +48,7 @@
 喂 wèi hello
 家 jiā home
 学校 xuéxiào school
-饭馆 fàndiàn restaurant
+饭馆 fànguǎn restaurant
 商店 shāngdiàn store
 医院 yīyuàn hospital
 火车站 huǒchēzhàn train station

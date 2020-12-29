@@ -2,8 +2,9 @@
   height: 200px;
   position: relative;
 }
-
-
+.flex-container {
+    display: flex;
+}
 .lvldisplay {
     align-self: center;
     align-items: center;   
@@ -14,15 +15,35 @@
     font-size: 80px;
     text-align:center;
 }
+.examdisplay {
+    font-size: 80px;
+    text-align:center;
+}
 
 .centereddiv{
     display: flex;
     justify-content: center;
 }
 
+.leftdiv{
+    display: flex;
+    justify-content: left;
+}
+
+.rightdiv{
+    display: flex;
+    justify-content: right;
+}
+
 .smalldisplay{
     font-size: 20px;
     padding: 20px;
+}
+
+.extrasmalldisplay{
+    font-size: 16px;
+    padding: 12px;
+    justify-self: right;
 }
 
 .unpressed {
@@ -104,3 +125,14 @@
 .button3:active {
     background-color: #62f367;
   }
+
+  .exitbutton {
+      padding: 9px;
+      background-color: lightcoral
+  }
+
+  .exitbutton:hover {
+    padding: 9px;
+    background: rgb(236, 104, 104);
+}
+

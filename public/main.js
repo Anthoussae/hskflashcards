@@ -507,7 +507,7 @@ function windowOpener() {
     currentExam = html;
 }
 
-//unique test code hash generator.(nonreversible)
+//unique test code generator.(nonreversible, not a real hash, just an ID)
 function codeGenerator(){
     hashCode = "L" + level.toString();
     let tempVal = Math.floor(Math.random()*100000);
@@ -528,29 +528,25 @@ function randomNumber(min, max) {
 }  
 
 //let's build in-browser test-taking technology!
-
-let homePageHTML = document.getElementById("all").innerHTML;
-let testPageHTML =  "<button" + " onclick" + "=" + "'" + "exit()" + "'" + '>' +  "abandon test </button>";
+//everything below this line is experimental.
 
 function onlineTestSmall(){
-    document.getElementById("all").innerHTML= testPageHTML;
+    randomCharacter();
+    document.getElementById("examdisplay").innerHTML = heldHan;
+    document.getElementById("testdiv").style= "display:block";
+    document.getElementById("superdiv").style= "display:none";
 }
 
 function onlineTestLarge(){
-    document.getElementById("all").innerHTML= testPageHTML;
-    // genHundred();
-    // document.getElementById('printdiv').innerHTML = currentExam;
-    // let printDiv= document.getElementById('printdiv');
-    // let superDiv  = document.getElementById('superdiv');
-    // printDiv.style.display = 'block';
-    // superDiv.style.display = 'none';
+    randomCharacter();
+    document.getElementById("examdisplay").innerHTML = heldHan;
+    document.getElementById("testdiv").style= "display:block";
+    document.getElementById("superdiv").style= "display:none";
+
 }
 
 function exit(){
-    document.getElementById("all").innerHTML = homePageHTML;
-    heldHan = "欢迎!";
-    heldPin = "huān yíng!";
-    heldEng = "Welcome!";
-    level = 1;
-    // location.reload();
+    document.getElementById("testdiv").style= "display:none";
+    document.getElementById("superdiv").style= "display:block";
+
 }
