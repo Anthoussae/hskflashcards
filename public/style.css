@@ -38,12 +38,14 @@
 .smalldisplay{
     font-size: 20px;
     padding: 20px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .extrasmalldisplay{
     font-size: 16px;
     padding: 12px;
     justify-self: right;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .unpressed {
@@ -74,20 +76,12 @@
     align-items: center;
 }
 
-.button3 {
-    background: rgb(194, 248, 194);
-    align-self: center;
-    align-items: center;
-    padding: 20px;
-    font-size: 30px;
-}
-
 .button4 {
     background: rgb(248, 183, 234);
     align-self: center;
     align-items: center;
     padding: 20px;
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .button4:hover {
@@ -95,7 +89,7 @@
     align-self: center;
     align-items: center;
     padding: 20px;
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .button5 {
@@ -103,7 +97,7 @@
     align-self: center;
     align-items: center;
     padding: 20px;
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .button5:hover {
@@ -111,28 +105,90 @@
     align-self: center;
     align-items: center;
     padding: 20px;
-    font-size: 30px;
+    font-size: 24px;
 }
 
+.button3 {
+    background: rgb(194, 248, 194);
+    align-self: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 24px;
+}
 .button3:hover{
     background: rgb(126, 250, 126);
     align-self: center;
     align-items: center;
     padding: 20px;
-    font-size: 30px;
+    font-size: 24px;
 }
-
-.button3:active {
-    background-color: #62f367;
-  }
+.button3:active{
+    background: rgb(107, 247, 107);
+    align-self: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 24px;
+}
 
   .exitbutton {
       padding: 9px;
-      background-color: lightcoral
+      background-color: lightcoral;
+      color: white;
+      font-size: 24px;
   }
-
   .exitbutton:hover {
     padding: 9px;
     background: rgb(236, 104, 104);
+    color:white;
+    font-size:24px;
 }
 
+.unpressedknown {
+     height:100px;
+     width:200px; 
+     font-size:24px;
+     background-color: lightgreen;
+     color: gray;
+}
+.unpressedknown:hover {
+    height:100px;
+    width:200px; 
+    font-size:24px;
+    background-color: rgb(106, 231, 106);
+    color: black;
+}
+.unpressedknown:active {
+    height:100px;
+    width:200px; 
+    font-size:28px;
+    background-color: rgb(59, 216, 59);
+    color: black;
+}
+
+.unpressedunknown {
+    height:100px;
+    width:200px; 
+    font-size:24px;
+    background-color: rgb(240, 164, 164);
+    color: gray;
+}
+.unpressedunknown:hover {
+    height:100px;
+    width:200px; 
+    font-size:24px;
+    background-color: rgb(236, 99, 99);
+    color: black;
+}
+.unpressedunknown:active {
+    height:100px;
+    width:200px; 
+    font-size:28px;
+    background-color: rgb(223, 75, 75);
+    color: black;
+}
+
+
+.testscoretracker {
+    font-size: 24px;
+    font-family:Arial, Helvetica, sans-serif; 
+}

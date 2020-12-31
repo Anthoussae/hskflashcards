@@ -1,6 +1,5 @@
 // retrieves the text file with the full wordlist 
 // then runs the functions that process the raw text into useable arrays.
-
 fetch('HSKRAW.txt')
   .then(res => res.text())
   .then(str => {
@@ -141,45 +140,44 @@ let level = 1;
 let heldHan = "欢迎!";
 let heldPin = "huān yíng!";
 let heldEng = "Welcome!";
-let radioElement1 = document.getElementById("radio1");
-let radioElement2 = document.getElementById("radio2");
-let radioElement3 = document.getElementById("radio3");
-let radioElement4 = document.getElementById("radio4");
-let radioElement5 = document.getElementById("radio5");
-let radioElement6 = document.getElementById("radio6");
 
 function setLevel1(){
     level = 1;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
 }
 
 function setLevel2(){
     level = 2;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
 }
 
 function setLevel3(){
     level = 3;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
 
 }
 
 function setLevel4(){
     level = 4;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
 
 }
 
 function setLevel5(){
     level = 5;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
 
 }
 
 function setLevel6(){
     level = 6;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
-
+    document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
 }
 
 //currently essentially unused. System needs a hash code generator for the tests.
@@ -527,26 +525,203 @@ function randomNumber(min, max) {
     return Math.random() * (max - min) + min; 
 }  
 
-//let's build in-browser test-taking technology!
-//everything below this line is experimental.
+//in-browser test.
 
-function onlineTestSmall(){
-    randomCharacter();
-    document.getElementById("examdisplay").innerHTML = heldHan;
-    document.getElementById("testdiv").style= "display:block";
-    document.getElementById("superdiv").style= "display:none";
+let answersInputNumber = 0;
+let testSize = 10;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+let letterGrade ='';
+let confirmCounter = 0;
+
+function setLengthTen(){
+    testSize = 10;
+}
+function setLengthTwenty(){
+    testSize = 20;
+}
+function setLengthFifty(){
+    testSize = 50;
+}
+function setLengthHundred(){
+    testSize = 100;
 }
 
+// takes you to the test page by disabling superdiv and enabling testdiv
 function onlineTestLarge(){
+    answersInputNumber = 0;
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    confirmCounter = 0;
     randomCharacter();
+    setRadioButtons();
+    setQuestionValue();
     document.getElementById("examdisplay").innerHTML = heldHan;
     document.getElementById("testdiv").style= "display:block";
     document.getElementById("superdiv").style= "display:none";
-
+    document.getElementById("testmenudiv").style= "display:none";
 }
 
+//takes you to the test menu page by disabling testdiv and superdiv and enabling testmenudiv
+function onlineTestMenu(){
+    setRadioButtons();
+    hideTestPinyin();
+    document.getElementById("testdiv").style= "display:none";
+    document.getElementById("testmenudiv").style= "display:block";
+    document.getElementById("superdiv").style= "display:none";
+}
+
+// returns to home menu by disabling testdiv and enabling superdiv.
 function exit(){
+    answersInputNumber = 0;
+    confirmCounter = 0;
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    answersInputNumber = 0;
+    setRadioButtons();
+    hideTestPinyin();
     document.getElementById("testdiv").style= "display:none";
     document.getElementById("superdiv").style= "display:block";
-
+    document.getElementById("testmenudiv").style= "display:none";
+    setQuestionValue();
 }
+
+//selects an answer to the honors system test
+function known(){
+    if (confirmCounter === 0 && answersInputNumber < testSize){
+        showTestPinyin();
+        confirmCounter = confirmCounter + 1;
+        document.getElementById('known').innerHTML = "confirm &#10004;"
+    }
+    else {
+        document.getElementById('unknown').innerHTML = "&#10006;"
+        document.getElementById('known').innerHTML = "&#10004;"
+        hideTestPinyin();
+        confirmCounter = 0;
+        if (answersInputNumber < testSize-1){ 
+            randomCharacter();
+            document.getElementById("examdisplay").innerHTML = heldHan;
+            answersInputNumber = answersInputNumber + 1;
+            correctAnswers = correctAnswers+1;
+            setQuestionValue();
+        }
+        else if (answersInputNumber === testSize-1){
+            answersInputNumber = answersInputNumber + 1;
+            correctAnswers = correctAnswers+1;
+            setQuestionValue();
+            showTestPinyin();
+            publishResults();
+        }
+    else {
+        publishResults();
+        showTestPinyin();
+        }
+    }
+}
+
+function unknown(){
+    if (confirmCounter === 0 && answersInputNumber < testSize){
+        showTestPinyin();
+        confirmCounter = confirmCounter + 1;
+        document.getElementById('unknown').innerHTML = "confirm &#10006;"
+    }
+    else {
+        document.getElementById('known').innerHTML = "&#10004;"
+        document.getElementById('unknown').innerHTML = "&#10006;"
+        hideTestPinyin();
+        confirmCounter = 0;
+        if (answersInputNumber < testSize-1){
+            randomCharacter();
+            document.getElementById("examdisplay").innerHTML = heldHan;
+            answersInputNumber = answersInputNumber + 1;
+            incorrectAnswers = incorrectAnswers + 1;
+            setQuestionValue()
+        }
+        else if (answersInputNumber === testSize-1){
+            answersInputNumber = answersInputNumber + 1;
+            incorrectAnswers = incorrectAnswers + 1;
+            setQuestionValue();
+            showTestPinyin();
+            publishResults();
+        }
+        else {
+            publishResults();
+            showTestPinyin();
+        }
+    }
+}
+
+//resets radio buttons to the appropriate level
+function setRadioButtons(){
+    if (level === 1){
+        document.getElementById("radio1").checked = true;
+        document.getElementById("testradio1").checked = true;
+    }
+    else if (level === 2){
+        document.getElementById("radio2").checked = true;
+        document.getElementById("testradio2").checked = true;
+    }
+    else if (level === 3){
+        document.getElementById("radio3").checked = true;
+        document.getElementById("testradio3").checked = true;
+    }
+    else if (level === 4){
+        document.getElementById("radio4").checked = true;
+        document.getElementById("testradio4").checked = true;
+    }
+    else if (level === 5){
+        document.getElementById("radio5").checked = true;
+        document.getElementById("testradio5").checked = true;
+    }
+    else if (level === 6){
+        document.getElementById("radio6").checked = true;
+        document.getElementById("testradio6").checked = true;
+    }
+}
+
+//sets the inside of the questions/test size element.
+function setQuestionValue(){
+    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize);
+}
+
+//reveals test results. Place test result saving function here.
+function publishResults(){
+    console.log("Your score: " + correctAnswers + "/" + testSize);
+    letterGradeCalculator();
+    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize +"<p>" + "your score: " + correctAnswers + "/" + testSize +"&nbsp" + "&nbsp" + letterGrade);
+}
+
+//calculates letter grade
+function letterGradeCalculator(){
+    if (correctAnswers/testSize === 1){
+        letterGrade = "(A+)"
+    }
+    else if (correctAnswers/testSize >0.89){
+        letterGrade = "(A)";
+    }
+    else if (correctAnswers/testSize > 0.79){
+        letterGrade = "(B)"
+    }
+    else if (correctAnswers/testSize > 0.69){
+        letterGrade = "(C)";
+    }
+    else if (correctAnswers/testSize > 0.59){
+        letterGrade = "(D)"
+    }
+    else {
+        letterGrade = "(F)";
+    }
+}
+
+//reveals the pinyin for current test word.
+function showTestPinyin(){
+    document.getElementById('testpinyin').innerHTML = heldPin;
+}
+
+//hides the pinyin for current test word.
+function hideTestPinyin(){
+    document.getElementById('testpinyin').innerHTML = "&nbsp";
+}
+
+// everything under this line is experimental.
+// pinyin exam detector.
