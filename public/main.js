@@ -561,6 +561,8 @@ function onlineTestLarge(){
     document.getElementById("superdiv").style= "display:none";
     document.getElementById("testmenudiv").style= "display:none";
     hideTest();
+    document.getElementById('revealtest').disabled=false;
+    document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
 }
 
 //takes you to the test menu page by disabling testdiv and superdiv and enabling testmenudiv
@@ -571,6 +573,8 @@ function onlineTestMenu(){
     document.getElementById("testmenudiv").style= "display:block";
     document.getElementById("superdiv").style= "display:none";
     hideTest();
+    document.getElementById('revealtest').disabled=false;
+    document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
 }
 
 // returns to home menu by disabling testdiv and enabling superdiv.
@@ -587,6 +591,8 @@ function exit(){
     document.getElementById("testmenudiv").style= "display:none";
     setQuestionValue();
     hideTest();
+    document.getElementById('revealtest').disabled=false;
+    document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
 }
 
 //selects an answer to the honors system test
@@ -619,10 +625,12 @@ function known(){
         setQuestionValue();
         showTestPinyin();
         publishResults();
+        disableTestButtons();
     }
      else {
           publishResults();
           showTestPinyin();
+          disableTestButtons();
     }
 }
 
@@ -641,10 +649,12 @@ function unknown(){
             setQuestionValue();
             showTestPinyin();
             publishResults();
+            disableTestButtons();
         }
         else {
             publishResults();
             showTestPinyin();
+            disableTestButtons();
         }
 }
 
@@ -685,7 +695,7 @@ function setQuestionValue(){
 function publishResults(){
     console.log("Your score: " + correctAnswers + "/" + testSize);
     letterGradeCalculator();
-    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize +"<p>" + "your score: " + correctAnswers + "/" + testSize +"&nbsp" + "&nbsp" + letterGrade);
+    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize +"<p>" + "your score: " + correctAnswers + "/" + testSize);
 }
 
 //calculates letter grade
@@ -722,3 +732,12 @@ function hideTestPinyin(){
 
 // everything under this line is experimental.
 // pinyin exam detector.
+
+function disableTestButtons(){
+    document.getElementById('revealtest').style='display:block';
+    document.getElementById('known').style='display:none';
+    document.getElementById('unknown').style='display:none';
+    showTestPinyin();
+    document.getElementById('revealtest').disabled=true;
+    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade;  
+}

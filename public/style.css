@@ -162,6 +162,12 @@
     background-color: rgb(60, 201, 226);
     color: black;
 }
+.revealtest:disabled {
+    opacity: 0.6;
+    border:none;
+    background-color: white;
+    color: black;
+  }
 
 .unpressedknown {
      height:100px;
