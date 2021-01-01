@@ -560,6 +560,7 @@ function onlineTestLarge(){
     document.getElementById("testdiv").style= "display:block";
     document.getElementById("superdiv").style= "display:none";
     document.getElementById("testmenudiv").style= "display:none";
+    hideTest();
 }
 
 //takes you to the test menu page by disabling testdiv and superdiv and enabling testmenudiv
@@ -569,6 +570,7 @@ function onlineTestMenu(){
     document.getElementById("testdiv").style= "display:none";
     document.getElementById("testmenudiv").style= "display:block";
     document.getElementById("superdiv").style= "display:none";
+    hideTest();
 }
 
 // returns to home menu by disabling testdiv and enabling superdiv.
@@ -584,58 +586,54 @@ function exit(){
     document.getElementById("superdiv").style= "display:block";
     document.getElementById("testmenudiv").style= "display:none";
     setQuestionValue();
+    hideTest();
 }
 
 //selects an answer to the honors system test
+function revealTest(){
+    document.getElementById('revealtest').style='display:none';
+    document.getElementById('known').style='display:block';
+    document.getElementById('unknown').style='display:block';
+    showTestPinyin();
+}
+
+function hideTest(){
+    document.getElementById('revealtest').style='display:block';
+    document.getElementById('known').style='display:none';
+    document.getElementById('unknown').style='display:none';
+    hideTestPinyin();
+}
+
 function known(){
-    if (confirmCounter === 0 && answersInputNumber < testSize){
-        showTestPinyin();
-        confirmCounter = confirmCounter + 1;
-        document.getElementById('known').innerHTML = "confirm &#10004;"
+     if (answersInputNumber < testSize-1){ 
+        randomCharacter();
+        document.getElementById("examdisplay").innerHTML = heldHan;
+        answersInputNumber = answersInputNumber + 1;
+        correctAnswers = correctAnswers+1;
+        setQuestionValue();
+        hideTest();
     }
-    else {
-        document.getElementById('unknown').innerHTML = "&#10006;"
-        document.getElementById('known').innerHTML = "&#10004;"
-        hideTestPinyin();
-        confirmCounter = 0;
-        if (answersInputNumber < testSize-1){ 
-            randomCharacter();
-            document.getElementById("examdisplay").innerHTML = heldHan;
-            answersInputNumber = answersInputNumber + 1;
-            correctAnswers = correctAnswers+1;
-            setQuestionValue();
-        }
-        else if (answersInputNumber === testSize-1){
-            answersInputNumber = answersInputNumber + 1;
-            correctAnswers = correctAnswers+1;
-            setQuestionValue();
-            showTestPinyin();
-            publishResults();
-        }
-    else {
-        publishResults();
+     else if (answersInputNumber === testSize-1){
+        answersInputNumber = answersInputNumber + 1;
+        correctAnswers = correctAnswers+1;
+        setQuestionValue();
         showTestPinyin();
-        }
+        publishResults();
+    }
+     else {
+          publishResults();
+          showTestPinyin();
     }
 }
 
 function unknown(){
-    if (confirmCounter === 0 && answersInputNumber < testSize){
-        showTestPinyin();
-        confirmCounter = confirmCounter + 1;
-        document.getElementById('unknown').innerHTML = "confirm &#10006;"
-    }
-    else {
-        document.getElementById('known').innerHTML = "&#10004;"
-        document.getElementById('unknown').innerHTML = "&#10006;"
-        hideTestPinyin();
-        confirmCounter = 0;
         if (answersInputNumber < testSize-1){
             randomCharacter();
             document.getElementById("examdisplay").innerHTML = heldHan;
             answersInputNumber = answersInputNumber + 1;
             incorrectAnswers = incorrectAnswers + 1;
             setQuestionValue()
+            hideTest();
         }
         else if (answersInputNumber === testSize-1){
             answersInputNumber = answersInputNumber + 1;
@@ -648,7 +646,6 @@ function unknown(){
             publishResults();
             showTestPinyin();
         }
-    }
 }
 
 //resets radio buttons to the appropriate level
@@ -715,7 +712,7 @@ function letterGradeCalculator(){
 
 //reveals the pinyin for current test word.
 function showTestPinyin(){
-    document.getElementById('testpinyin').innerHTML = heldPin;
+    document.getElementById('testpinyin').innerHTML = heldPin + "&nbsp" + "&nbsp" + "[" +"&nbsp"+  heldEng + "]";
 }
 
 //hides the pinyin for current test word.

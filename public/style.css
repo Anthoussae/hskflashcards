@@ -24,6 +24,10 @@
     display: flex;
     justify-content: center;
 }
+.centeredtestdiv{
+    display: flex;
+    justify-content: center;
+}
 
 .leftdiv{
     display: flex;
@@ -141,6 +145,22 @@
     background: rgb(236, 104, 104);
     color:white;
     font-size:24px;
+}
+
+
+.revealtest {
+    height:100px;
+    width:400px; 
+    font-size:24px;
+    background-color: rgb(116, 234, 255);
+    color: gray;
+}
+.revealtest:hover {
+    height:100px;
+    width:400px; 
+    font-size:24px;
+    background-color: rgb(60, 201, 226);
+    color: black;
 }
 
 .unpressedknown {

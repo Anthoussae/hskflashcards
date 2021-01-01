@@ -16,11 +16,12 @@
           <div class="centereddiv">
                <p id="testpinyin" style='font-size:26px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>&nbsp</p>
           </div>
-          <div class="centereddiv">
-              <br></br>
-              <button class="unpressedknown" id="known" onclick="known()"> &#10004;</button>
-              <button class="unpressedunknown" id="unknown" onclick="unknown()">&#10006;</button>
-              <br></br>
+          <div class='centereddiv'>
+               <button class="revealtest" id="revealtest" onclick="revealTest()" style='display:block'>Show Pinyin and English</button>
+           </div>  
+          <div class='centereddiv'>
+              <button class="unpressedknown" id="known" onclick="known()" style='display:none'> &#10004;</button>
+              <button class="unpressedunknown" id="unknown" onclick="unknown()" style='display:none'>&#10006;</button>
           </div>  
           <div class="centereddiv">
                <p class='testscoretracker' id='score'>Score: &nbsp 0/0<br></br></p>
