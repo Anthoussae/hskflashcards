@@ -1085,7 +1085,7 @@ function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
     curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
     curatedErrorLog = curatedErrorLog + "<tr>";
-    curatedErrorLog = curatedErrorLog + "<th>submitted answer: &nbsp </th>" + "<th>correct answer: &nbsp</th>" + "</tr>";
+    curatedErrorLog = curatedErrorLog + "<th>submitted answer</th>" + "<th>correct answer</th>" + "</tr>";
     let alternator = 0;
     for (let i = 0; i < errorLog.length; i++){
         if (alternator === 0){
