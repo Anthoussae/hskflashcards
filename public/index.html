@@ -35,6 +35,77 @@
           </div>
      </div>
 
+<!-- pinyin test page div -->
+<div id='pintestdiv' style='display:none'>
+     <div class="centereddiv">
+          <p class="handisplay" id="pinexamdisplay">&nbsp &nbsp欢迎！</p>
+     </div>
+     <div class="centereddiv">
+          <p id="pintestpinyin" style='font-size:26px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>&nbsp</p>
+     </div>
+     <div class='centereddiv' id='pinyininputboxes' style='display:flex;'>
+            <label for="inputpinyin" style='font-size:28px; font-family:Arial, Helvetica, sans-serif; justify-content:center; text-align: center; align-self: center;'>Input Pinyin: &nbsp</label>
+            <input type="text" id="inputpinyin" name="inputpinyin" required minlength="1" maxlength="20" style='font-size:30px; font-family:Arial, Helvetica, sans-serif; height:120px; width:350px;'>
+            &nbsp &nbsp <button onclick='submitPinyin()' style='font-size:26px;'>&nbsp&nbsp Submit &nbsp (⏎) &nbsp </button>
+     </div>
+     <div class='centereddiv' id='pinyintestresults'> 
+          <p id="pinyinresultstable" style='display:none; font-size:30px; text-align:center; font-family: Arial, Helvetica, sans-serif;'>&nbsp &nbsp欢迎！</p>
+     </div>
+     <div class="centereddiv">
+          <p class='testscoretracker' id='pinscore'>Score: &nbsp 0/0<br></br></p>
+     </div>      
+     <div class="centereddiv">
+          <div class="flex-container">
+               <button class='exitbutton' onclick="exit()">Quit Test</button>   
+               <p class= "extrasmalldisplay" id="lvldisplay2">&nbsp HSK Level: 1 &nbsp &nbsp 汉语水平考试 （一级）</p>
+               <button class="button5" onclick="onlineTestMenu()">New Test</button>  &nbsp
+               <button class="button3" onclick="revealInstructions()">Intructions</button>   
+          </div>
+     </div>
+     <br></br>
+     <div class="centereddiv" id='pinyinbuttons' style="display:none">
+         <table>
+               <tr>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+               <tr>
+                    <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+                   <td> <button></button> </td>
+               </tr>
+         </table>
+     </div>
+     <br></br>
+     <div class='centereddiv' id='instructions' style='margin-left: 15%; margin-right:15%; font-size:24px; font-family: Arial, Helvetica, sans-serif; display:none;'>
+          Instead of accents, you may use the numbers 1-4 to indicate the appropriate tone.
+          Write the number after the pinyin word. Do not write a number for neutral tones.
+          For example, you may input 我 (wŏ) as 'wo3', or 他 (tā) as 'ta1'.
+          中国 (zhōngguó) can be input as 'zhong1guo2'. Neutral tones have no number: 的 (de) must be input as 'de'. Umlauts are ignored, but the tone is not: 女 (nǚ) may be input as 'nǚ', 'nǔ', or 'nu3'. Spaces are ignored. Empty submissions are not processed.
+       </div>
+</div>
+
  <!-- Test Menu Page -->
      <div id='testmenudiv' style='display:none'> 
           <br></br>
@@ -42,9 +113,9 @@
                <p style='font-size:22px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>SELECT TEST TYPE:</p>
           </div>
           <div class="centereddiv">
-               <form  id="testType"> 
-                  <input id="honourtest" style="height:35px; width:35px;" onclick="setTestTypeHonour()" type="radio" name="level1" value="level1"  checked> Self-Assessed Test
-                  <!-- <input id="pinyintest" style="height:35px; width:35px;" onclick="setTestTypePinyin()" type="radio" name="level1" value="level1" > Pinyin Test -->
+               <form  id="testType">
+                    <input id="pinyintest" style="height:35px; width:35px;" onclick="setTestTypePinyin()" type="radio" name="level1" value="level1" checked> Pinyin Input Test 
+                  <input id="honourtest" style="height:35px; width:35px;" onclick="setTestTypeHonour()" type="radio" name="level1" value="level1" > Self-Assessed Test
               </form>
           </div>
           <br></br>

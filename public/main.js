@@ -7,6 +7,13 @@ fetch('HSKRAW.txt')
     subdivider(cardArray);
   })
 
+//what does 'which is deprecated' mean?
+document.onkeyup = function(e) {
+    if (e.which == 13 && currentLocation === "pinyinTest") {
+      submitPinyin();
+    }
+}
+
 let cardArray = [];
 let temp = '';
 
@@ -18,6 +25,8 @@ let hsk3Array = [];
 let hsk4Array = [];
 let hsk5Array = [];
 let hsk6Array = [];
+
+let currentLocation = "homepage";
 
 // processor works
 // puts each line from the text file into an array
@@ -533,6 +542,13 @@ let correctAnswers = 0;
 let incorrectAnswers = 0;
 let letterGrade ='';
 let confirmCounter = 0;
+let inputBox = document.getElementById('inputpinyin');
+let instructionsToggle = 0;
+let testType = "pinyin";
+let pinyinSubmissionsArray = [];
+let toneNumbersArray = [];
+let toneNumbersTracker = 0;
+
 
 function setLengthTen(){
     testSize = 10;
@@ -547,31 +563,81 @@ function setLengthHundred(){
     testSize = 100;
 }
 
+//start bug-prone section (specifically, data from the following three functions
+// frequently overlaps/carries over weirdly. Make sure to clear and reset all the
+// wayward HTML in this section.)
+
+
+
 // takes you to the test page by disabling superdiv and enabling testdiv
 function onlineTestLarge(){
-    answersInputNumber = 0;
-    correctAnswers = 0;
-    incorrectAnswers = 0;
-    confirmCounter = 0;
-    randomCharacter();
-    setRadioButtons();
-    setQuestionValue();
-    document.getElementById("examdisplay").innerHTML = heldHan;
-    document.getElementById("testdiv").style= "display:block";
-    document.getElementById("superdiv").style= "display:none";
-    document.getElementById("testmenudiv").style= "display:none";
-    hideTest();
-    document.getElementById('revealtest').disabled=false;
-    document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
+    if (testType === "honour"){
+        currentLocation = "honourTest";
+        answersInputNumber = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        confirmCounter = 0;
+        instructionsToggle = 1;
+        revealInstructions();
+        randomCharacter();
+        setRadioButtons();
+        setQuestionValue();
+        pinyinSubmissionsArray = [];
+        toneNumbersArray = [];
+        toneNumbersTracker = 0;
+        document.getElementById("examdisplay").innerHTML = heldHan;
+        document.getElementById("testdiv").style= "display:block";
+        document.getElementById("superdiv").style= "display:none";
+        document.getElementById("testmenudiv").style= "display:none";
+        document.getElementById("pintestdiv").style= "display:none";
+        hideTest();
+        document.getElementById('revealtest').disabled=false;
+        document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
+    }
+    else if (testType === "pinyin"){
+        currentLocation = "pinyinTest";
+        document.getElementById('pinyininputboxes').style='display:flex';
+        document.getElementById('pinyinresultstable').style='display:none';
+        document.getElementById('pinexamdisplay').style='display:flex';
+        answersInputNumber = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        confirmCounter = 0;
+        toneNumbersArray = [];
+        toneNumbersTracker = 0;
+        instructionsToggle = 1;
+        revealInstructions();
+        randomCharacter();
+        setRadioButtons();
+        setQuestionValue();
+        pinyinSubmissionsArray = [];
+        document.getElementById('pinscore').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize);
+        document.getElementById("pinexamdisplay").innerHTML = heldHan;
+        document.getElementById("testdiv").style= "display:none";
+        document.getElementById("superdiv").style= "display:none";
+        document.getElementById("testmenudiv").style= "display:none";
+        document.getElementById("pintestdiv").style= "display:block";
+        hideTestPinyin();
+        inputBox.value = "";
+        inputBox.focus();
+        inputBox.select();
+    }
 }
 
 //takes you to the test menu page by disabling testdiv and superdiv and enabling testmenudiv
 function onlineTestMenu(){
+    currentLocation = "testMenu";
     setRadioButtons();
     hideTestPinyin();
+    instructionsToggle = 1;
+    revealInstructions();
+    pinyinSubmissionsArray = [];
+    toneNumbersArray = [];
+    toneNumbersTracker = 0;
     document.getElementById("testdiv").style= "display:none";
     document.getElementById("testmenudiv").style= "display:block";
     document.getElementById("superdiv").style= "display:none";
+    document.getElementById("pintestdiv").style= "display:none";
     hideTest();
     document.getElementById('revealtest').disabled=false;
     document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
@@ -579,21 +645,32 @@ function onlineTestMenu(){
 
 // returns to home menu by disabling testdiv and enabling superdiv.
 function exit(){
+    currentLocation = "homepage";
     answersInputNumber = 0;
     confirmCounter = 0;
     correctAnswers = 0;
     incorrectAnswers = 0;
     answersInputNumber = 0;
+    instructionsToggle = 1;
+    toneNumbersArray = [];
+    toneNumbersTracker = 0;
+    revealInstructions();
     setRadioButtons();
     hideTestPinyin();
+    pinyinSubmissionsArray = [];
     document.getElementById("testdiv").style= "display:none";
     document.getElementById("superdiv").style= "display:block";
     document.getElementById("testmenudiv").style= "display:none";
+    document.getElementById("pintestdiv").style= "display:none";
     setQuestionValue();
     hideTest();
     document.getElementById('revealtest').disabled=false;
     document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
 }
+
+//end bug-prone section
+
+
 
 //selects an answer to the honors system test
 function revealTest(){
@@ -729,10 +806,7 @@ function showTestPinyin(){
 function hideTestPinyin(){
     document.getElementById('testpinyin').innerHTML = "&nbsp";
 }
-
-// everything under this line is experimental.
-// pinyin exam detector.
-
+// blanks the testbutton
 function disableTestButtons(){
     document.getElementById('revealtest').style='display:block';
     document.getElementById('known').style='display:none';
@@ -740,4 +814,290 @@ function disableTestButtons(){
     showTestPinyin();
     document.getElementById('revealtest').disabled=true;
     document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade;  
+}
+
+// pinyin exam detector.
+
+function setTestTypePinyin(){
+    console.log("pinyin")
+    testType = "pinyin";
+}
+
+function setTestTypeHonour(){
+    console.log("honour")
+    testType = "honour";
+}
+
+//this button submits the user guess for pinyin tests.
+function submitPinyin(){
+    if (answersInputNumber<testSize){
+        let submission = inputBox.value;
+        if (submission.length > 0){
+            inputBox.value = "";
+            inputBox.focus();
+            inputBox.select();
+            pinyinSubmissionsArray.push([heldHan, submission.replace(/\s+/g, '').toLowerCase(), heldPin]);
+            answersInputNumber = answersInputNumber + 1;
+            document.getElementById('pinscore').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize);
+            randomCharacter();
+            let doubledChar = false;
+            for (let i = 0; i < pinyinSubmissionsArray.length; i++){
+                if (pinyinSubmissionsArray[i][0] === heldHan){
+                    doubledChar = true;
+                    console.log('reroll');
+                }
+            }
+            while (doubledChar === true){
+                randomCharacter();
+                let doubledChecker = 0
+                for (let i = 0; i < pinyinSubmissionsArray.length; i++){
+                    if (pinyinSubmissionsArray[i][0] === heldHan){
+                        doubledChecker = 1;
+                    }
+                }
+                if (doubledChecker === 1){
+                    doubledChar = true;
+                }
+                else {
+                    doubledChar = false;
+                }
+            }
+            document.getElementById('pinexamdisplay').innerHTML = heldHan;
+        }
+        else {
+            inputBox.value = "please type pinyin here";
+            inputBox.focus();
+            inputBox.select();
+        }
+    }
+    else {
+        console.log('test over');
+        gradePinyinTest(pinyinSubmissionsArray);
+    }
+}
+
+//shows/hides the instruction panel for pinyin tests
+function revealInstructions(){
+    if (instructionsToggle === 0){
+    document.getElementById('instructions').style=style='margin-left: 25%; margin-right:25%; font-size:24px; font-family: Arial, Helvetica, sans-serif; display:block;';
+    instructionsToggle = 1;
+    }
+    else {
+        instructionsToggle = 0;
+        document.getElementById('instructions').style=style='margin-left: 25%; margin-right:25%; font-size:24px; font-family: Arial, Helvetica, sans-serif; display:none;'
+    }
+}
+
+let errorLog = [];
+
+//grade the submitted exam.
+function gradePinyinTest(arr){
+   errorLog = [];
+   correctAnswers = 0;
+   for (let i = 0; i < arr.length;  i++){
+       if (pinyinMatch(arr[i][1], arr[i][2]) === true){
+           correctAnswers = correctAnswers + 1;
+       }
+       else {
+        errorLog.push( arr[i][1], arr[i][2] + "(" + arr[i][0] + ")");
+       }
+   }
+   letterGradeCalculator();
+   console.log(letterGrade, (correctAnswers + "/" + testSize));
+   console.log(errorLog);
+   endPinyinTest();
+}
+
+//checks to see if the user's input matches the correct pinyin.
+function pinyinMatch(inputPinyin, correctPinyin){
+    //resets the tone tracking system.
+    toneNumbersArray = [];
+    toneNumbersTracker = 0;
+
+    //all instances of correctpinyin must be changed to lowerCaseCorrect
+    let lowerCaseCorrect = correctPinyin.toLowerCase();
+
+    //build an array with all the user's input numbers.
+    //we must alert the user not to input 0.
+    for (let j = 0; j<inputPinyin.length; j++){
+        if (inputPinyin[j] === "1"||
+            inputPinyin[j] === "2"||
+            inputPinyin[j] === "3"||
+            inputPinyin[j] === "4"){
+                toneNumbersArray.push(inputPinyin[j]);
+            }
+    }
+
+    //need to remove all numbers from the inputPinyin String.
+    let numberLessInput = inputPinyin.replace(/[0-4]/g, '');
+
+    // check and see if they're the exact same.
+    if (numberLessInput === lowerCaseCorrect){
+        return true;
+    }
+    // check and see if they're the exact same length (if not, can't be a match)
+    else if (numberLessInput.length != lowerCaseCorrect.length){
+        return false;
+    }
+    else {
+        //check it character-for-character.
+        let errorsDetected = 0;
+        for (let i = 0; i < numberLessInput.length; i++){
+            let inputChar = numberLessInput[i];
+            let correctChar = lowerCaseCorrect[i];
+            if (inputChar === correctChar){
+                //characters match. no need to do anything.
+            }
+            else {
+                // check and see that it's a consonant.
+               if (/[bcdfghjklmnpqrstvwxys]/gi.test(inputChar)){
+                //both are consonants, but they don't match. User input is wrong.
+                return false;
+               }
+               else {
+                   //user input is a vowel, but doesn't match the correct pinyin.
+                   //first let's set the accentless pinyin.
+                   let accentlessPinyin;
+                   if ( correctChar === "ā"||
+                        correctChar === "á"||
+                        correctChar === "à"||
+                        correctChar === "ǎ"||
+                        correctChar === "a"){
+                            accentlessPinyin = "a";
+                        }
+                   if ( correctChar === "ī"||
+                        correctChar === "í"||
+                        correctChar === "ǐ"||
+                        correctChar === "ì"||
+                        correctChar === "i"){
+                            accentlessPinyin = "i";
+                        }
+                   if ( correctChar === "ū"||
+                        correctChar === "ú"||
+                        correctChar === "ǔ"||
+                        correctChar === "ù"||
+                        correctChar === "ü"||
+                        correctChar === "ǘ"||
+                        correctChar === "ǚ"||
+                        correctChar === "ǜ"||
+                        correctChar === "u"){
+                            accentlessPinyin = "u";
+                        }
+                   if ( correctChar === "ō"||
+                        correctChar === "ó"||
+                        correctChar === "ǒ"||
+                        correctChar === "ò"||
+                        correctChar === "o"){
+                            accentlessPinyin = "o";
+                        }
+                   if ( correctChar === "ē"||
+                        correctChar === "é"||
+                        correctChar === "ě"||
+                        correctChar === "è"||
+                        correctChar === "e"){
+                            accentlessPinyin = "e";
+                        }
+                    if (accentlessPinyin != inputChar){
+                        // the user did not input the correct vowel.
+                        return false;
+                    }
+                    else {
+                        //the user has input the correct vowel.
+                        //it is time to determine the accent.
+                        let tone;
+                        if ( correctChar === "a"||
+                        correctChar === "e"||
+                        correctChar === "i"||
+                        correctChar === "o"||
+                        correctChar === "u"||
+                        correctChar === "ü"){
+                            tone = "0";
+                        }
+                        else if ( correctChar === "ā"||
+                        correctChar === "ē"||
+                        correctChar === "ī"||
+                        correctChar === "ō"||
+                        correctChar === "ū"){
+                            tone = "1";
+                        }
+                        else  if ( correctChar === "á"||
+                        correctChar === "é"||
+                        correctChar === "í"||
+                        correctChar === "ó"||
+                        correctChar === "ú"||
+                        correctChar === "ǘ"){
+                            tone = "2";
+                        }
+                        else  if ( correctChar === "ǎ"||
+                        correctChar === "ě"||
+                        correctChar === "ǐ"||
+                        correctChar === "ǒ"||
+                        correctChar === "ǔ"||
+                        correctChar === "ǚ"){
+                            tone = "3";
+                        }
+                        else if ( correctChar === "à"||
+                        correctChar === "è"||
+                        correctChar === "ì"||
+                        correctChar === "ò"||
+                        correctChar === "ù"||
+                        correctChar === "ǜ"){
+                            tone = "4";
+                        }
+                        //we have determined the tone. Now lets compare it to our records.
+                        if (toneNumbersArray[toneNumbersTracker] === tone){
+                                toneNumbersTracker = toneNumbersTracker + 1;
+                                // it matches. move onto next tone.
+                        }
+                        else {
+                            return false;
+                            //the tone is incorrect.
+                        }
+                    }
+                }
+            }
+        }
+        if (errorsDetected > 1){
+            //catches any remaining exceptions, and returns an error.
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+}
+
+
+let curatedErrorLog = '';
+
+//ends the pinyin test, hiding various elements and displaying results.
+function endPinyinTest(){
+    document.getElementById('pinyininputboxes').style='display:none';
+    document.getElementById('pinexamdisplay').style='display:none';
+    document.getElementById('pinyinresultstable').style='display:flex; font-size:30px; text-align:center; font-family: Arial, Helvetica, sans-serif;';
+    curateErrorLog();
+    document.getElementById('pinyinresultstable').innerHTML=curatedErrorLog;
+    curatedErrorLog = '';
+}
+
+
+function curateErrorLog(){
+    curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
+    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    curatedErrorLog = curatedErrorLog + "<tr>";
+    curatedErrorLog = curatedErrorLog + "<th>submitted answer: &nbsp </th>" + "<th>correct answer: &nbsp</th>" + "</tr>";
+    let alternator = 0;
+    for (let i = 0; i < errorLog.length; i++){
+        if (alternator === 0){
+            alternator = 1;
+        curatedErrorLog = curatedErrorLog + "<tr>";
+        curatedErrorLog = curatedErrorLog + '<td>' + errorLog[i] + "</td>";
+        }
+        else {
+            curatedErrorLog = curatedErrorLog + "<td>" + errorLog[i] + '</td>';
+            curatedErrorLog = curatedErrorLog + "</tr>";
+            alternator = 0;
+        }
+    }
+    curatedErrorLog = curatedErrorLog + "</table>";
 }
