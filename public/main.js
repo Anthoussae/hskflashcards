@@ -154,25 +154,28 @@ function setLevel1(){
     level = 1;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 1 &nbsp &nbsp 汉语水平考试 （一级）";
 }
 
 function setLevel2(){
     level = 2;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 2 &nbsp &nbsp 汉语水平考试 （二级）";
 }
 
 function setLevel3(){
     level = 3;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
-
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 3 &nbsp &nbsp 汉语水平考试 （三级）";
 }
 
 function setLevel4(){
     level = 4;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 4 &nbsp &nbsp 汉语水平考试 （四级）";
 
 }
 
@@ -180,6 +183,7 @@ function setLevel5(){
     level = 5;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 5 &nbsp &nbsp 汉语水平考试 （五级）";
 
 }
 
@@ -187,6 +191,7 @@ function setLevel6(){
     level = 6;
     document.getElementById("lvldisplay").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
     document.getElementById("lvldisplay2").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
+    document.getElementById("lvldisplay3").innerHTML = "HSK LEVEL: 6 &nbsp &nbsp 汉语水平考试 （六级）";
 }
 
 //currently essentially unused. System needs a hash code generator for the tests.
