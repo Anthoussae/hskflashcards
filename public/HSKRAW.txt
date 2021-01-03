@@ -52,7 +52,7 @@
 商店 shāngdiàn store
 医院 yīyuàn hospital
 火车站 huǒchēzhàn train station
-中国 Zhōngguò China
+中国 Zhōngguó China
 北京 Běijīng Beijing
 上 shàng up
 下 xià down
