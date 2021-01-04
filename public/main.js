@@ -838,7 +838,7 @@ function disableTestButtons(){
     document.getElementById('unknown').style='display:none';
     showTestPinyin();
     document.getElementById('revealtest').disabled=true;
-    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade +"&nbsp" + "Your score: " + correctAnswers + "/" + testSize  + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
+    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + correctAnswers + "/" + testSize  +  "&nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
 }
 
 // pinyin exam detector.
