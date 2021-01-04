@@ -779,7 +779,7 @@ function setQuestionValue(){
 function publishResults(){
     console.log("Your score: " + correctAnswers + "/" + testSize);
     letterGradeCalculator();
-    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize +"<p>" + "your score: " + correctAnswers + "/" + testSize);
+    document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize);
 }
 function getLetterGradeGivenScore(score){
     if (score === 1){
@@ -838,7 +838,7 @@ function disableTestButtons(){
     document.getElementById('unknown').style='display:none';
     showTestPinyin();
     document.getElementById('revealtest').disabled=true;
-    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
+    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade +"&nbsp" + "Your score: " + correctAnswers + "/" + testSize  + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
 }
 
 // pinyin exam detector.
