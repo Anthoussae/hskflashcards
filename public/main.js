@@ -1,3 +1,5 @@
+Cookies.set('key', 'value');
+
 // retrieves the text file with the full wordlist 
 // then runs the functions that process the raw text into useable arrays.
 fetch('HSKRAW.txt')
@@ -779,27 +781,45 @@ function publishResults(){
     letterGradeCalculator();
     document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize +"<p>" + "your score: " + correctAnswers + "/" + testSize);
 }
-
-//calculates letter grade
-function letterGradeCalculator(){
-    if (correctAnswers/testSize === 1){
-        letterGrade = "(A+)"
+function getLetterGradeGivenScore(score){
+    if (score === 1){
+        return "(A+)";
     }
-    else if (correctAnswers/testSize >0.89){
-        letterGrade = "(A)";
+    else if (score >0.89){
+        return "(A)";
     }
-    else if (correctAnswers/testSize > 0.79){
-        letterGrade = "(B)"
+    else if (score > 0.79){
+        return "(B)";
     }
-    else if (correctAnswers/testSize > 0.69){
-        letterGrade = "(C)";
+    else if (score > 0.69){
+        return "(C)";
     }
-    else if (correctAnswers/testSize > 0.59){
-        letterGrade = "(D)"
+    else if (score > 0.59){
+        return "(D)";
     }
     else {
-        letterGrade = "(F)";
+        return "(F)";
     }
+}
+
+let legacyLetterGrade ='';
+
+//calculates letter grade, and also manages cookies.
+//this code generates two cookies, 'testnumber' (the # of tests taken by the user)
+// and 'historicscore' (the average % score of those tests.)
+function letterGradeCalculator(){
+    let numberOfTestsTaken = +Cookies.get("testNumber") || 0;
+    numberOfTestsTaken = numberOfTestsTaken + 1;
+    let historicPercentage = +Cookies.get("historicScore") || 0;
+    let percentageResult = correctAnswers/testSize;
+    let prov = (historicPercentage * (numberOfTestsTaken-1)) + (percentageResult);
+    console.log(prov);
+    prov = prov/(numberOfTestsTaken);
+    Cookies.set("historicScore", prov);
+    Cookies.set("testNumber", (numberOfTestsTaken));
+    console.log(Cookies.get("testNumber"), Cookies.get("historicScore"));
+    letterGrade = getLetterGradeGivenScore(correctAnswers/testSize);
+    legacyLetterGrade = getLetterGradeGivenScore(prov);
 }
 
 //reveals the pinyin for current test word.
@@ -818,7 +838,7 @@ function disableTestButtons(){
     document.getElementById('unknown').style='display:none';
     showTestPinyin();
     document.getElementById('revealtest').disabled=true;
-    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade;  
+    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
 }
 
 // pinyin exam detector.
@@ -1088,7 +1108,7 @@ function endPinyinTest(){
 
 function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
-    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
     curatedErrorLog = curatedErrorLog + "<tr>";
     curatedErrorLog = curatedErrorLog + "<th>submitted answer</th>" + "<th>correct answer</th>" + "</tr>";
     let alternator = 0;
@@ -1106,3 +1126,4 @@ function curateErrorLog(){
     }
     curatedErrorLog = curatedErrorLog + "</table>";
 }
+
