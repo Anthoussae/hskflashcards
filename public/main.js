@@ -1108,7 +1108,7 @@ function endPinyinTest(){
 
 function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
-    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade + "</caption>";
     curatedErrorLog = curatedErrorLog + "<tr>";
     curatedErrorLog = curatedErrorLog + "<th>submitted answer</th>" + "<th>correct answer</th>" + "</tr>";
     let alternator = 0;
