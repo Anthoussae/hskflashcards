@@ -16,6 +16,22 @@ document.onkeyup = function(e) {
     }
 }
 
+let cookiePermission = false;
+
+//cookie warning
+function cookieWarning(){
+    
+    let tempPermission = confirm('this site uses cookies. Press "OK" to accept cookies, or "cancel" to forbid cookies."');
+    if (tempPermission === true){
+        cookiePermission = true;
+        console.log("cookies enabled");
+    }
+    else {
+        cookiePermission = false;
+        console.log("cookies disabled");
+    }
+}
+
 let cardArray = [];
 let temp = '';
 
@@ -808,15 +824,23 @@ let legacyLetterGrade ='';
 //this code generates two cookies, 'testnumber' (the # of tests taken by the user)
 // and 'historicscore' (the average % score of those tests.)
 function letterGradeCalculator(){
-    let numberOfTestsTaken = +Cookies.get("testNumber") || 0;
+    let numberOfTestsTaken;
+    let historicPercentage;
+    if (cookiePermission){
+        numberOfTestsTaken = +Cookies.get("testNumber") || 0;
+    }
     numberOfTestsTaken = numberOfTestsTaken + 1;
-    let historicPercentage = +Cookies.get("historicScore") || 0;
+    if (cookiePermission){
+        historicPercentage = +Cookies.get("historicScore") || 0;
+    }
     let percentageResult = correctAnswers/testSize;
     let prov = (historicPercentage * (numberOfTestsTaken-1)) + (percentageResult);
     console.log(prov);
     prov = prov/(numberOfTestsTaken);
-    Cookies.set("historicScore", prov);
-    Cookies.set("testNumber", (numberOfTestsTaken));
+    if (cookiePermission){
+        Cookies.set("historicScore", prov);
+        Cookies.set("testNumber", (numberOfTestsTaken));
+    }
     console.log(Cookies.get("testNumber"), Cookies.get("historicScore"));
     letterGrade = getLetterGradeGivenScore(correctAnswers/testSize);
     legacyLetterGrade = getLetterGradeGivenScore(prov);
@@ -838,7 +862,12 @@ function disableTestButtons(){
     document.getElementById('unknown').style='display:none';
     showTestPinyin();
     document.getElementById('revealtest').disabled=true;
-    document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + correctAnswers + "/" + testSize  +  "&nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
+    if (cookiePermission){
+        document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + correctAnswers + "/" + testSize  +  "&nbsp" + letterGrade + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade; 
+    }
+    else {
+        document.getElementById('revealtest').innerHTML= "Your grade: &nbsp" + correctAnswers + "/" + testSize  +  "&nbsp" + letterGrade;
+    }
 }
 
 // pinyin exam detector.
@@ -1108,7 +1137,12 @@ function endPinyinTest(){
 
 function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
-    curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    if (cookiePermission){
+        curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br>" + "Your average grade: &nbsp" + legacyLetterGrade + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    }
+    else {
+        curatedErrorLog = curatedErrorLog + "<caption>" + "your grade: &nbsp" + letterGrade + "&nbsp"+ "&nbsp" + correctAnswers + "/" + testSize + "<br></br>" + "your errors: &nbsp" + "<br></br>" + "</caption>";
+    }
     curatedErrorLog = curatedErrorLog + "<tr>";
     curatedErrorLog = curatedErrorLog + "<th>submitted answer</th>" + "<th>correct answer</th>" + "</tr>";
     let alternator = 0;
