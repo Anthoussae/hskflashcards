@@ -21,7 +21,7 @@ let cookiePermission = false;
 //cookie warning
 function cookieWarning(){
     
-    let tempPermission = confirm('this site uses cookies. Press "OK" to accept cookies, or "cancel" to forbid cookies."');
+    let tempPermission = confirm('this site uses cookies. Press "OK" to accept cookies, or "Cancel" to forbid cookies.');
     if (tempPermission === true){
         cookiePermission = true;
         console.log("cookies enabled");
