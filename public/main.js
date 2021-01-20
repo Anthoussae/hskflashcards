@@ -1,5 +1,3 @@
-Cookies.set('key', 'value');
-
 // retrieves the text file with the full wordlist 
 // then runs the functions that process the raw text into useable arrays.
 fetch('HSKRAW.txt')
@@ -9,7 +7,6 @@ fetch('HSKRAW.txt')
     subdivider(cardArray);
   })
 
-//what does 'which is deprecated' mean?
 document.onkeyup = function(e) {
     if (e.which == 13 && currentLocation === "pinyinTest") {
       submitPinyin();
@@ -21,7 +18,7 @@ let cookiePermission = false;
 //cookie warning
 function cookieWarning(){
     
-    let tempPermission = confirm('this site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (Specifically, if you enable cookies, this site will record the number of tests you have taken and your average test score.)');
+    let tempPermission = confirm('This site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (If you enable cookies, this site will record the number of tests you have taken and your average test score.)');
     if (tempPermission === true){
         cookiePermission = true;
         console.log("cookies enabled");
@@ -30,6 +27,10 @@ function cookieWarning(){
         cookiePermission = false;
         console.log("cookies disabled");
     }
+}
+
+if (cookiePermission === true) {
+    Cookies.set('key', 'value');
 }
 
 let cardArray = [];

@@ -70,6 +70,134 @@ npm install js-cookie
     22c) Note that cookies are always strings, so you may need to numerify them (hence the "+").
     22d) If you attempt to 'get' a nonexistent key, the syntax above (with the OR operator ||) will generate a value for it (in this case, 0) and write it to the cookie. Otherwise it will retrieve the value of the key as normal. Remember that it'll be saved as a string.
 
- -- creating a database and managing data using MongoDB--
+ ------------- creating a database and managing data using MongoDB--------------
 
-1) Create a MongoDB account.
+
+1) Create an account on MongoDB
+2) Create a "New Project"
+3) give it a name.
+4) select 'create Project'
+5) select 'build a cluster'
+6) choose free version.
+7) select settings, 'create cluster'
+8) wait for it to be created.
+9) select 'connect'
+10) select 'allow access from anywhere' in the 'add a connection IP address' tab.
+11) Create a database user account + password
+
+12) choose a connection method: select 'connect your application'.
+
+13) copy the connection string. Something like: mongodb+srv://HSKflashcardsAdmin:<password>@cluster0.qmuc9.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+14) Collections > add my own data
+
+15) Give your database and collection a name. Be careful about naming your database and collections, as it needs to exactly match your models file, described below.
+
+16) navigate to server.js in the root folder. After everything, paste this:
+
+app.get('/api/records', (req, res) => {
+	Record.find({})
+		.then(records => {
+			res.json(records);
+		})
+		.catch(reason => {
+			res.status(500).json(reason);
+		});
+});
+
+17) You may need to navigate to your root folder in cmd and type:
+
+npm run start
+
+18) then, in your browser, navigate to: 
+
+localhost:3000
+
+19) as an alternative way of running your program (unlike live-server, express is javascript that acts as the server). instead of using live-server, npm run start is a better alternative.
+
+19b) in the terminal, CTRL+C terminates a process.
+
+20) navigate to the root directory of your project. Create a new folder named models.
+
+21) Create a new JS file inside this folder. This file will describe a single entry in your database's collection.
+
+21b) The file must also require the Mongoose wrapper for interacting with MongoDB. For example, the file might look like this:
+
+const mongoose = require('mongoose');
+mongoose.set('useUnifiedTopology', true);
+
+const TestResultSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: true
+	},
+	numberOfTestsTaken: {
+		type: Number,
+		required: true
+	},
+	averageTestResult: {
+		type: Number,
+		required: true
+    },
+    failedCharacters: [{
+        type: String,
+        required: false
+    }]
+});
+
+module.exports = mongoose.model('TestResult', TestResultSchema);
+
+22) navigate to your root folder, and type (in cmd):
+npm install mongoose
+
+23) go to server.js and paste the code below (TestResult below corresponds to the nomenclature in your models file. Ensure that all your nomenclature lines up correctly.):
+
+const TestResult = require("./models/TestResult");
+
+Edit the final lines of your server.js file like below. Note that we have changed the word Record and records for TestResult and testResults respectively.
+
+app.get('/api/records', (req, res) => {
+	TestResult.find({})
+		.then(testResults => {
+			res.json(testResults);
+		})
+		.catch(reason => {
+			res.status(500).json(reason);
+    	});
+});
+
+24) Underneath your requires in server.js, paste:
+
+mongoose.connect(process.env.MONGODB_URI, {
+	useNewUrlParser: true,
+});
+mongoose.connection.on('error', err => console.error('MongoDB connection error:', err));
+
+25) navigate to your .env file. Underneath the PORT=3000, type:
+
+MONGODB_URI= (your connection string without brackets)
+
+26) then edit your connection string removing placeholders signified by <> (remove the <> also). MongoDB requires your password and your database name which you declared earlier.
+
+27) Add this line in server.js: 
+
+const mongoose = require("mongoose");
+
+28) You will need to rearrange your server.js file. Make sure that all the 'requires' are at the  top, as well as dotenv.config().
+
+29) Beneath everything in your server.js file, paste:
+
+
+app.post('/api/records', (req, res) => {
+	const testResult = new TestResult(req.body);
+
+	testResult.save()
+		.then(testResultData => {
+			res.json(testResultData);
+		})
+		.catch(reason => {
+			res.status(500).json(reason);
+		});
+});
+
+ ---- pick it up from here ----
