@@ -201,3 +201,88 @@ app.post('/api/records', (req, res) => {
 });
 
  ---- pick it up from here ----
+
+ edits: We deleted the collection and renamed it "TestResult"
+ Edits: In TestResult.js, we replaced the last line with (adding 1 argument):
+
+ module.exports = mongoose.model('TestResult', TestResultSchema, "TestResults");
+
+ in TestResults.js, change all the model definitions in TestResultSchema to strings. It should look like this:
+
+const TestResultSchema = new mongoose.Schema({
+	"name": {
+		type: String,
+		required: true
+	},
+	"numberOfTestsTaken": {
+		type: Number,
+		required: true
+	},
+	"averageTestResult": {
+		type: Number,
+		required: true
+    },
+    "failedCharacters": [{
+        type: String,
+        required: false
+    }]
+});
+
+The following is a sample function that will retrieve all the records from your collection and log them to the console:
+
+function testDatabase(){
+    fetch("/api/records")
+    .then(res => res.text())
+    .then(str => {
+        console.log(str);
+  })
+}
+
+This sample function will return the records as a string.
+
+res.text()
+
+However, it can be returned as a json object, that is parsed and can be examined
+in terms of key:value pairs like any other javaScript object. For example:
+
+//database test
+function testDatabase(){
+    fetch("/api/records")
+    .then(res => res.json())
+    .then(str => {
+        console.log(str[0].name);
+  })
+}
+
+(note that the log indicates str[0], because what we are retrieving from the server is an array). The above console.log will display the name of the first entry in the collection.
+
+If you wish to retrieve data from another collection, you must define a new API endpoint. To do this, edit your server.js file with a new pair of 'get' and 'post' endpoints. For instance:
+
+app.get('/api/records', (req, res) => {
+	TestResult.find({})
+		.then(testResults => {
+            console.log(testResults);
+			res.json(testResults);
+		})
+		.catch(reason => {
+			res.status(500).json(reason);
+    	});
+});
+app.post('/api/records', (req, res) => {
+	const testResult = new TestResult(req.body);
+	testResult.save()
+		.then(testResultData => {
+			res.json(testResultData);
+		})
+		.catch(reason => {
+			res.status(500).json(reason);
+		});
+});
+
+You would have to change the /records part to another word. 
+You would have to change TestResult to another model.
+You would have to define a new model. Logically, save it into the models folder,
+and follow the structure of TestResult.js
+Ideally, create a new collection on MongoDB. However, it's not mandatory: If you try to write to a nonexistent collection, it will create it.
+
+

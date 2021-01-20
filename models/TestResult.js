@@ -2,22 +2,26 @@ const mongoose = require('mongoose');
 mongoose.set('useUnifiedTopology', true);
 
 const TestResultSchema = new mongoose.Schema({
-	name: {
+	"name": {
 		type: String,
 		required: true
 	},
-	numberOfTestsTaken: {
+	"numberOfTestsTaken": {
 		type: Number,
 		required: true
 	},
-	averageTestResult: {
+	"averageTestResult": {
 		type: Number,
 		required: true
     },
-    failedCharacters: [{
+    "failedCharacters": [{
         type: String,
         required: false
-    }]
+	}],
+	"password": {
+		type: String,
+		required: true
+	}
 });
 
 module.exports = mongoose.model('TestResult', TestResultSchema, "TestResults");

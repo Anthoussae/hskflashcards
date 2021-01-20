@@ -15,6 +15,15 @@ document.onkeyup = function(e) {
 
 let cookiePermission = false;
 
+//database test
+function testDatabase(){
+    fetch("/api/records")
+    .then(res => res.json())
+    .then(str => {
+        console.log(str[0].name);
+  })
+}
+
 //cookie warning
 function cookieWarning(){
     
