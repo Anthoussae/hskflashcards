@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8'>
+    <link rel="icon" type="image/png" href="favicon.png"/>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Chinese Flashcards</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -9,6 +10,75 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 </head>
 <body id='all' onload="cookieWarning()">
+
+          <!-- <button class='plaintextbutton' onclick="loginButton()">login</button>
+          <button class='plaintextbutton' onclick="createAccountButton()">create account</button> -->
+          <!-- <p class='statustracker' id='cookieinformdiv'>Cookies: ON</p> -->
+          <!-- <button class='plaintextdisplay' id='loggedinstatusinformdiv' disabled='disabled' style='float:right;'>&nbsp logged out</button> -->
+     
+<!-- ------------------------------- experimental zone start ----------------------------->
+
+<div id="loginscreen" class="modal">
+  
+     <form class="modal-content animate"method="post">
+       <div class="flex-container">
+         <span onclick="document.getElementById('loginscreen').style.display='none'" class="close" title="Close Modal">&times;</span>
+       </div>
+
+       <div class="imgcontainer" style='font-size:26px'>
+         <label for="uname"><b>Username</b></label>
+         <input id='loginname'class='modalinput'type="text" placeholder="Enter Username" name="uname" required>
+   
+         <label for="psw"><b>Password</b></label>
+         <input id='loginpassword'class='modalinput' type="password" placeholder="Enter Password" name="psw" required>
+           <br></br>
+         <button class='button3'style='width:90%' type='button' onclick="loginForm()">Login</button>
+         <!-- <label id ='rememberlabel'>
+              <br></br>
+           <input  id='remembermecheckbox' class='checkbox'type="checkbox" checked="checked" name="remember"> Remember me
+         </label> -->
+       </div>
+   
+       <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
+         <button type="loginbutton" onclick="document.getElementById('loginscreen').style.display='none'" class="exitbutton">Cancel</button>
+         <span>&nbsp &nbsp &nbsp &nbsp</span>
+         <span class="psw">Forgot <a href="#" onclick="forgotPassword()">password?</a></span>
+       </div>
+     </form>
+   </div>
+
+   <div id="createaccountscreen" class="modal">
+  
+     <form class="modal-content animate"method="post">
+       <div class="flex-container">
+         <span onclick="document.getElementById('createaccountscreen').style.display='none'" class="close" title="Close Modal">&times;</span>
+       </div>
+
+       <div class="imgcontainer" style='font-size:26px'>
+         <label for="uname"><b>New Username</b></label>
+         <input id='createaccountname'class='modalinput'type="text" placeholder="Enter Username" name="uname" required>
+          <br></br>
+         <label for="psw"><b>Password (at least 6 characters)</b></label>
+         <input id='createaccountpassword'class='modalinput' type="password" placeholder="Enter Password" name="psw" required>
+         <br></br>
+
+          <label for="confpsw"><b>Confirm Password</b></label>
+          <input id='confirmcreateaccountpassword'class='modalinput' type="password" placeholder="Confirm Password" name="psw" required>
+          <br></br>
+
+         <button class='button3'style='width:90%' type='button' onclick="createAccount()">Create Account</button>
+       </div>
+   
+       <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
+         <button type="loginbutton" onclick="document.getElementById('createaccountscreen').style.display='none'" class="exitbutton">Cancel</button>
+       </div>
+     </form>
+   </div>
+
+
+<!-- ------------------------------- experimental zone end ------------------------------->
+
+
 <!-- test page div -->
      <div id='testdiv' style='display:none'>
           <div class="centereddiv">
@@ -110,14 +180,14 @@
 </div>
 
  <!-- Test Menu Page -->
-     <div id='testmenudiv' style='display:none'> 
+     <div id='testmenudiv' style='display:none;'> 
           <br></br>
           <div class="centereddiv">
                <p style='font-size:22px; font-family:Arial, Helvetica, sans-serif; justify-content:center;'>SELECT TEST TYPE:</p>
           </div>
           <div class="centereddiv">
                <form  id="testType">
-                    <input id="pinyintest" style="height:35px; width:35px;" onclick="setTestTypePinyin()" type="radio" name="level1" value="level1" checked> Pinyin Input Test 
+                  <input id="pinyintest" style="height:35px; width:35px;" onclick="setTestTypePinyin()" type="radio" name="level1" value="level1" checked> Pinyin Input Test 
                   <input id="honourtest" style="height:35px; width:35px;" onclick="setTestTypeHonour()" type="radio" name="level1" value="level1" > Self-Assessed Test
               </form>
           </div>

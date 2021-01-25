@@ -13,29 +13,35 @@ document.onkeyup = function(e) {
     }
 }
 
+
 let cookiePermission = false;
 
-//database test
-function testDatabase(){
-    fetch("/api/records")
-    .then(res => res.json())
-    .then(str => {
-        console.log(str[0].name);
-  })
-}
-
-//cookie warning
+//cookie warning: disabled by default
 function cookieWarning(){
-    
-    let tempPermission = confirm('This site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (If you enable cookies, this site will record the number of tests you have taken and your average test score.)');
+    cookiePermission = false;
+    return;
+    let tempPermission;
+    let cookieHistory =  +Cookies.get("testNumber");
+    if (cookieHistory > -1){
+        cookiePermission = true;
+        tempPermission = true;
+        document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
+        console.log("cookies on by default from previous session");
+    }
+    else {
+        tempPermission = confirm('This site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (If you enable cookies, this site will record the number of tests you have taken, your average test score, and your login credentials.)');
+    }
     if (tempPermission === true){
         cookiePermission = true;
         console.log("cookies enabled");
+        document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
     }
     else {
         cookiePermission = false;
         console.log("cookies disabled");
+        document.getElementById("cookieinformdiv").innerHTML = "Cookies: OFF";
     }
+    cookieMods();
 }
 
 if (cookiePermission === true) {
@@ -243,12 +249,7 @@ function randomCharacter(){
              randomNumber = 1;
          }
          if (hsk1Array[randomNumber].length === 3){
-             heldHan = hsk1Array[randomNumber][0];
-             heldPin = hsk1Array[randomNumber][1];
-             heldEng = hsk1Array[randomNumber][2];
-             console.log(heldHan, heldPin, heldEng);
-             codeBox.push(randomNumber);
-
+            setFlashcardPick(hsk1Array, randomNumber);
          }
          else {
              console.log("error");
@@ -259,60 +260,35 @@ function randomCharacter(){
         if (randomNumber < 0){
             randomNumber = 1;
         }
-        heldHan = hsk2Array[randomNumber][0];
-        heldPin = hsk2Array[randomNumber][1];
-        heldEng = hsk2Array[randomNumber][2];
-        console.log(heldHan, heldPin, heldEng);
-        codeBox.push(randomNumber);
-
+        setFlashcardPick(hsk2Array, randomNumber);
     }
     else if (level === 3){
         let randomNumber = Math.floor(Math.random() * hsk3Array.length-1);
         if (randomNumber < 0){
             randomNumber = 1;
         }
-        heldHan = hsk3Array[randomNumber][0];
-        heldPin = hsk3Array[randomNumber][1];
-        heldEng = hsk3Array[randomNumber][2];
-        console.log(heldHan, heldPin, heldEng);
-        codeBox.push(randomNumber);
-
+        setFlashcardPick(hsk3Array, randomNumber);
     }
     else if (level === 4){
         let randomNumber = Math.floor(Math.random() * hsk4Array.length-1);
         if (randomNumber < 0){
             randomNumber = 1;
         }
-        heldHan = hsk4Array[randomNumber][0];
-        heldPin = hsk4Array[randomNumber][1];
-        heldEng = hsk4Array[randomNumber][2];
-        console.log(heldHan, heldPin, heldEng);
-        codeBox.push(randomNumber);
-
+        setFlashcardPick(hsk4Array, randomNumber);
     }
     else if (level === 5){
         let randomNumber = Math.floor(Math.random() * hsk5Array.length-1);
         if (randomNumber < 0){
             randomNumber = 1;
         }
-        heldHan = hsk5Array[randomNumber][0];
-        heldPin = hsk5Array[randomNumber][1];
-        heldEng = hsk5Array[randomNumber][2];
-        console.log(heldHan, heldPin, heldEng);
-        codeBox.push(randomNumber);
-
+        setFlashcardPick(hsk5Array, randomNumber);
     }
     else if (level === 6){
         let randomNumber = Math.floor(Math.random() * hsk6Array.length-1);
         if (randomNumber < 0){
             randomNumber = 1;
         }
-        heldHan = hsk6Array[randomNumber][0];
-        heldPin = hsk6Array[randomNumber][1];
-        heldEng = hsk6Array[randomNumber][2];
-        console.log(heldHan, heldPin, heldEng);
-        codeBox.push(randomNumber);
-
+        setFlashcardPick(hsk6Array, randomNumber);
     }
     else{
         console.log("error");
@@ -323,6 +299,15 @@ function randomCharacter(){
     if (codeBox.length > 200){
         codeBox = [];
     }
+}
+
+//builds the flashcard
+function setFlashcardPick(arr, num){
+    heldHan = arr[num][0];
+    heldPin = arr[num][1];
+    heldEng = arr[num][2];
+    console.log(num, heldHan, heldPin, heldEng);
+    codeBox.push(num);
 }
 
 // these functions govern the pinyin / english reveal buttons.
@@ -701,11 +686,8 @@ function exit(){
     document.getElementById('revealtest').innerHTML="Show Pinyin and English" ;
 }
 
-//end bug-prone section
 
-
-
-//selects an answer to the honors system test
+//reveals the test.
 function revealTest(){
     document.getElementById('revealtest').style='display:none';
     document.getElementById('known').style='display:block';
@@ -713,6 +695,7 @@ function revealTest(){
     showTestPinyin();
 }
 
+//conceals the test.
 function hideTest(){
     document.getElementById('revealtest').style='display:block';
     document.getElementById('known').style='display:none';
@@ -720,6 +703,7 @@ function hideTest(){
     hideTestPinyin();
 }
 
+//used in honour test, declares a word to be known.
 function known(){
      if (answersInputNumber < testSize-1){ 
         randomCharacter();
@@ -744,6 +728,7 @@ function known(){
     }
 }
 
+//used in honour test, declares a word to be unknown.
 function unknown(){
         if (answersInputNumber < testSize-1){
             randomCharacter();
@@ -807,6 +792,8 @@ function publishResults(){
     letterGradeCalculator();
     document.getElementById('score').innerHTML = ("Question: &nbsp" + answersInputNumber + "/" + testSize);
 }
+
+//takes a number between 0 and 1 and converts it to a letter grade.
 function getLetterGradeGivenScore(score){
     if (score === 1){
         return "(A+)";
@@ -833,6 +820,7 @@ let legacyLetterGrade ='';
 //calculates letter grade, and also manages cookies.
 //this code generates two cookies, 'testnumber' (the # of tests taken by the user)
 // and 'historicscore' (the average % score of those tests.)
+//depends on cookiePermission being true.
 function letterGradeCalculator(){
     let numberOfTestsTaken;
     let historicPercentage;
@@ -845,7 +833,9 @@ function letterGradeCalculator(){
     }
     let percentageResult = correctAnswers/testSize;
     let prov = (historicPercentage * (numberOfTestsTaken-1)) + (percentageResult);
-    console.log(prov);
+    if (cookiePermission){
+        console.log(prov);
+    }
     prov = prov/(numberOfTestsTaken);
     if (cookiePermission){
         Cookies.set("historicScore", prov);
@@ -865,6 +855,7 @@ function showTestPinyin(){
 function hideTestPinyin(){
     document.getElementById('testpinyin').innerHTML = "&nbsp";
 }
+
 // blanks the testbutton
 function disableTestButtons(){
     document.getElementById('revealtest').style='display:block';
@@ -880,13 +871,11 @@ function disableTestButtons(){
     }
 }
 
-// pinyin exam detector.
-
+// test type set.
 function setTestTypePinyin(){
     console.log("pinyin")
     testType = "pinyin";
 }
-
 function setTestTypeHonour(){
     console.log("honour")
     testType = "honour";
@@ -1144,7 +1133,7 @@ function endPinyinTest(){
     curatedErrorLog = '';
 }
 
-
+//cleans up the data collected during your test for presentation.
 function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "<table style=" + "width:100%" + ">";
     if (cookiePermission){
@@ -1171,3 +1160,88 @@ function curateErrorLog(){
     curatedErrorLog = curatedErrorLog + "</table>";
 }
 
+
+//database test
+function testDatabase(){
+    fetch("/api/records")
+    .then(res => res.json())
+    .then(str => {
+        console.log(str[0].name);
+  })
+}
+
+//experimental zone ------------------------------------------------------------------//
+
+// Get the modals
+var loginModal = document.getElementById('loginscreen');
+var registerModal = document.getElementById('createaccountscreen');
+
+// When the user clicks anywhere outside of the modals, close it
+window.onclick = function(event) {
+    if (event.target == loginModal || event.target == registerModal) {
+        loginModal.style.display = "none";
+        registerModal.style.display = "none";
+    }
+}
+
+//click on the forgot password button
+function forgotPassword(){
+    console.log("You forgot!");
+}
+
+//click on the login button in the modal
+function loginForm(){
+    let name = document.getElementById("loginname").value;
+    let password = document.getElementById("loginpassword").value;
+    let remember = document.getElementById("remembermecheckbox").checked;
+    console.log(remember);
+    console.log(name, password);
+}
+
+//click on the login button on the non-modal screen
+function loginButton(){
+    document.getElementById('loginscreen').style.display='block';
+    document.getElementById("loginname").focus();
+}
+
+//generates the account creation modal screen
+function createAccountButton(){
+    document.getElementById('createaccountscreen').style.display='block';
+    document.getElementById("createaccountname").focus();
+}
+
+//submits the create account form
+function createAccount(){
+    let username = document.getElementById("createaccountname").value;
+    let password =  document.getElementById("createaccountpassword").value;
+    let passwordConfirmation = document.getElementById("confirmcreateaccountpassword").value;
+    if (password.length<6){
+        console.log("password too short");
+        password.focus;
+        password.value = "";
+    }
+    if (password === passwordConfirmation){
+        console.log(username, password);
+    }
+    else if (password != passwordConfirmation){
+        console.log("passwords don't match!");
+        password.focus;
+        password.value = "";
+        passwordConfirmation = "";
+    }
+}
+
+//applies a variety of changes to the site based on cookie permission status.
+function cookieMods(){
+    if (!cookiePermission){
+        document.getElementById("remembermecheckbox").disabled="disabled";
+        document.getElementById("rememberlabel").innerHTML="<br></br>";
+        console.log('cookies disabled: remember me function suspended');
+    }
+    if (cookiePermission){
+        let name = Cookies.get("name");
+        let password = Cookies.get("password");
+        document.getElementById("loginname").value = name;
+        document.getElementById("loginpassword").value = password;
+    }
+}

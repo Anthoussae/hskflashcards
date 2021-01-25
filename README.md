@@ -200,7 +200,7 @@ app.post('/api/records', (req, res) => {
 		});
 });
 
- ---- pick it up from here ----
+
 
  edits: We deleted the collection and renamed it "TestResult"
  Edits: In TestResult.js, we replaced the last line with (adding 1 argument):
@@ -285,4 +285,23 @@ You would have to define a new model. Logically, save it into the models folder,
 and follow the structure of TestResult.js
 Ideally, create a new collection on MongoDB. However, it's not mandatory: If you try to write to a nonexistent collection, it will create it.
 
+Incorporate Favicons:
+    <!-- <link rel="icon" type="image/png" href="favicon.png"/> -->
+paste this into your <head> tag. Then make sure that a png named favicon is in your public folder.
+
+TO DO:
+
+exit modal console errors check/fix
+Paypal donations :)?
+Mail system?
+sort out multiple readings for single characters (eg de/dei)
+hover tooltips on test types.
+Add 'review your least known characters' flashcard option.
+Add 'Hard test mode' test option.
+fix login cookie bugs (ensure correct behaviour)
+the password.focus and password field clear function doesnt work.
+general code review and cleanup: consider Esa's feedback:
+	- You could come up with more descriptive class names (instead of button1, button2, ...). This helps future developers (including yourself) understand the code when making changes.
+	- The state management looks a bit complicated. Consider having a "single source of truth" for the state and everything else be just a representation of it.
+	- You could use local storage instead of js-cookie for storing information between sessions. This is less intrusive and doesn't have legal implications. You also set the cookie "key" to "value" before asking for approval.
 
