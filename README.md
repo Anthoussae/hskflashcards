@@ -298,7 +298,6 @@ The favicon has to be less than 1kb. (really small)
 5) git push no longer works without specifying the branch (once you are pushing anything other than main)
 6) to push up a branch, use:
 	git push origin BRANCHNAME
-5) I'm on objectVersion.
 
 TO DO:
 
