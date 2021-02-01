@@ -13,10 +13,11 @@ document.onkeyup = function(e) {
     }
 }
 
-
+//comment 3
+//comment 5
 let cookiePermission = false;
 
-//cookie warning: disabled by default
+//cookie warning: disabled by default sfsdfsdfdthvvvvvvv
 //note: Cookie coke is all functional, but the below modification means that cookies are
 //permanently disabled throughout the program.
 function cookieWarning(){
