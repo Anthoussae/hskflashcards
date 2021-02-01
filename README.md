@@ -295,9 +295,22 @@ The favicon has to be less than 1kb. (really small)
 2) git branch in cmd tells you how many branches you have, * is the one you're on.
 3) git branch BRANCHNAME creates a new branch (in root)
 4) git checkout BRANCHNAME switches you to that branch.
+4b) You must commit before checkout.
 5) git push no longer works without specifying the branch (once you are pushing anything other than main)
 6) to push up a branch, use:
 	git push origin BRANCHNAME
+7) to combine two branches, checkout to the branch you want to be the 'base' and type:
+	git merge BRANCHNAME
+7b) for example. You checkout to main. You want to merge branch1 into main. You type:
+	git checkout main
+	git merge branch1
+	here's what will happen:
+	-all of the code from branch1 will merge into main provided there are no conflicts.
+	-new lines are brought in without conflict.
+	-branch1 remains unchanged.
+	-main will be changed.
+	-if there is a conflict on a line,  
+
 
 TO DO:
 
