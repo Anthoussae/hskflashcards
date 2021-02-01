@@ -292,6 +292,10 @@ The favicon has to be less than 1kb. (really small)
 
 /// How to Git Branch (create a new branch for your project)
 1) commit everything.
+2) git branch in cmd tells you how many branches you have, * is the one you're on.
+3) git branch BRANCHNAME creates a new branch (in root)
+4) git checkout BRANCHNAME switches you to that branch.
+5) I'm on objectVersion.
 
 TO DO:
 
