@@ -55,6 +55,7 @@
 .unpressed {
     background: lightgrey;
     font-size: 30px;
+    cursor: pointer;
     align-self: center;
     align-items: center;
 }
@@ -84,6 +85,7 @@
     background: rgb(248, 183, 234);
     align-self: center;
     align-items: center;
+    cursor: pointer;
     padding: 20px;
     font-size: 24px;
 }
@@ -102,6 +104,7 @@
     align-items: center;
     padding: 20px;
     font-size: 24px;
+    cursor:pointer;
 }
 
 .button5:hover {
@@ -118,6 +121,7 @@
     align-items: center;
     padding: 20px;
     font-size: 24px;
+    cursor:pointer;
 }
 .button3:hover{
     background: rgb(126, 250, 126);
@@ -136,9 +140,11 @@
 
   .exitbutton {
       padding: 9px;
+      cursor:pointer;
       background-color: lightcoral;
       color: white;
       font-size: 24px;
+      border-radius: 22px;
   }
   .exitbutton:hover {
     padding: 9px;
@@ -151,6 +157,7 @@
 .revealtest {
     height:100px;
     width:400px; 
+    cursor:pointer;
     font-size:24px;
     background-color: rgb(116, 234, 255);
     color: gray;
@@ -173,6 +180,7 @@
      height:100px;
      width:200px; 
      font-size:24px;
+     cursor:pointer;
      background-color: lightgreen;
      color: gray;
 }
@@ -194,6 +202,7 @@
 .unpressedunknown {
     height:100px;
     width:200px; 
+    cursor:pointer;
     font-size:24px;
     background-color: rgb(240, 164, 164);
     color: gray;
@@ -224,12 +233,13 @@
 
 .plaintextbutton {
     background: rgb(255, 255, 255);
-    color: blue
+    color: rgb(161, 161, 161);
     align-self: center;
     align-items: center;
     border: none;
     padding: 10px;
     font-size: 24px;
+    cursor:pointer;
 }
 
 .plaintextbutton:hover {
@@ -244,7 +254,7 @@
 
 .plaintextbutton:active {
     background: rgb(255, 255, 255);
-    color: darkblue;
+    color: rgb(192, 192, 192);
     border: none;
     align-self: center;
     align-items: center;
@@ -254,17 +264,13 @@
 
 .plaintextdisplay {
     background: rgb(255, 255, 255);
-    color: blue
+    color: rgb(224, 224, 224);
     align-self: center;
     align-items: center;
     border: none;
     padding: 10px;
     font-size: 24px;
 }
-
-
-
-/* below this is experimental ---------------------------------------------------*/
 
 /* Full-width input fields */
 .modalinput[type=text], .modalinput[type=password] {
@@ -376,4 +382,9 @@
 
   #radiolevel{
       font-size: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+  }
+
+  div>form>input {
+      cursor: pointer;
   }

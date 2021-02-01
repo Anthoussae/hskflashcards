@@ -11,12 +11,12 @@
 </head>
 <body id='all' onload="cookieWarning()">
 
-          <!-- <button class='plaintextbutton' onclick="loginButton()">login</button>
-          <button class='plaintextbutton' onclick="createAccountButton()">create account</button> -->
+          <button class='plaintextbutton' onclick="loginButton()">login</button>
+          <button class='plaintextbutton' onclick="createAccountButton()">create account</button>
           <!-- <p class='statustracker' id='cookieinformdiv'>Cookies: ON</p> -->
-          <!-- <button class='plaintextdisplay' id='loggedinstatusinformdiv' disabled='disabled' style='float:right;'>&nbsp logged out</button> -->
+          <button class='plaintextdisplay' id='loggedinstatusinformdiv' disabled='disabled' style='float:right;'>&nbsp logged out</button>
      
-<!-- ------------------------------- experimental zone start ----------------------------->
+<!-- ------------------------------- modal zone start ----------------------------->
 
 <div id="loginscreen" class="modal">
   
@@ -40,7 +40,7 @@
        </div>
    
        <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
-         <button type="loginbutton" onclick="document.getElementById('loginscreen').style.display='none'" class="exitbutton">Cancel</button>
+         <button type="button" onclick="document.getElementById('loginscreen').style.display='none'" class="exitbutton">Cancel</button>
          <span>&nbsp &nbsp &nbsp &nbsp</span>
          <span class="psw">Forgot <a href="#" onclick="forgotPassword()">password?</a></span>
        </div>
@@ -70,13 +70,13 @@
        </div>
    
        <div class="imgcontainer" style="background-color:#f1f1f1; justify-content: center; display:flex; padding-top: 20px; padding-bottom: 20px; font-size:24px;">
-         <button type="loginbutton" onclick="document.getElementById('createaccountscreen').style.display='none'" class="exitbutton">Cancel</button>
+         <button type="button" onclick="document.getElementById('createaccountscreen').style.display='none'" class="exitbutton">Cancel</button>
        </div>
      </form>
    </div>
 
 
-<!-- ------------------------------- experimental zone end ------------------------------->
+<!-- ------------------------------- modal zone end ------------------------------->
 
 
 <!-- test page div -->
@@ -117,7 +117,7 @@
      <div class='centereddiv' id='pinyininputboxes' style='display:flex;'>
             <label for="inputpinyin" style='font-size:28px; font-family:Arial, Helvetica, sans-serif; justify-content:center; text-align: center; align-self: center;'>Input Pinyin: &nbsp</label>
             <input type="text" id="inputpinyin" name="inputpinyin" required minlength="1" maxlength="20" style='font-size:30px; font-family:Arial, Helvetica, sans-serif; height:120px; width:350px;'>
-            &nbsp &nbsp <button onclick='submitPinyin()' style='font-size:26px;'>&nbsp&nbsp Submit &nbsp (⏎) &nbsp </button>
+            &nbsp &nbsp <button onclick='submitPinyin()' style='font-size:26px; cursor:pointer;     '>&nbsp&nbsp Submit &nbsp (⏎) &nbsp </button>
      </div>
      <div class='centereddiv' id='pinyintestresults'> 
           <p id="pinyinresultstable" style='display:none; font-size:30px; text-align:center; font-family: Arial, Helvetica, sans-serif;'>&nbsp &nbsp欢迎！</p>

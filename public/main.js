@@ -17,31 +17,33 @@ document.onkeyup = function(e) {
 let cookiePermission = false;
 
 //cookie warning: disabled by default
+//note: Cookie coke is all functional, but the below modification means that cookies are
+//permanently disabled throughout the program.
 function cookieWarning(){
     cookiePermission = false;
     return;
-    let tempPermission;
-    let cookieHistory =  +Cookies.get("testNumber");
-    if (cookieHistory > -1){
-        cookiePermission = true;
-        tempPermission = true;
-        document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
-        console.log("cookies on by default from previous session");
-    }
-    else {
-        tempPermission = confirm('This site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (If you enable cookies, this site will record the number of tests you have taken, your average test score, and your login credentials.)');
-    }
-    if (tempPermission === true){
-        cookiePermission = true;
-        console.log("cookies enabled");
-        document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
-    }
-    else {
-        cookiePermission = false;
-        console.log("cookies disabled");
-        document.getElementById("cookieinformdiv").innerHTML = "Cookies: OFF";
-    }
-    cookieMods();
+    // let tempPermission;
+    // let cookieHistory =  +Cookies.get("testNumber");
+    // if (cookieHistory > -1){
+    //     cookiePermission = true;
+    //     tempPermission = true;
+    //     document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
+    //     console.log("cookies on by default from previous session");
+    // }
+    // else {
+    //     tempPermission = confirm('This site uses cookies. Press "OK" to allow cookies, or "Cancel" to forbid cookies. (If you enable cookies, this site will record the number of tests you have taken, your average test score, and your login credentials.)');
+    // }
+    // if (tempPermission === true){
+    //     cookiePermission = true;
+    //     console.log("cookies enabled");
+    //     document.getElementById("cookieinformdiv").innerHTML = "Cookies: ON";
+    // }
+    // else {
+    //     cookiePermission = false;
+    //     console.log("cookies disabled");
+    //     document.getElementById("cookieinformdiv").innerHTML = "Cookies: OFF";
+    // }
+    // cookieMods();
 }
 
 if (cookiePermission === true) {
@@ -99,6 +101,7 @@ function processor(str){
 // subdivider works, sets the appropriate HSK level array to a 2D array.
 // pulls data from cardArray.
 // array is in the format [[hanzi, pinyin, english],[hanzi, pinyin, english],[hanzi, pinyin, english],[hanzi, pinyin, english]].
+
 
 function subdivider(arr){
 
@@ -183,6 +186,8 @@ let level = 1;
 let heldHan = "欢迎!";
 let heldPin = "huān yíng!";
 let heldEng = "Welcome!";
+
+
 
 function setLevel1(){
     level = 1;
@@ -1170,8 +1175,6 @@ function testDatabase(){
   })
 }
 
-//experimental zone ------------------------------------------------------------------//
-
 // Get the modals
 var loginModal = document.getElementById('loginscreen');
 var registerModal = document.getElementById('createaccountscreen');
@@ -1189,13 +1192,24 @@ function forgotPassword(){
     console.log("You forgot!");
 }
 
-//click on the login button in the modal
+//click on the login button in the modal to submit the form (it's not a regular form submit)
 function loginForm(){
-    let name = document.getElementById("loginname").value;
-    let password = document.getElementById("loginpassword").value;
-    let remember = document.getElementById("remembermecheckbox").checked;
-    console.log(remember);
+    //this function should check the login name + password against the database.
+    //if they match, log user in.
+    let nameEl = document.getElementById("loginname");
+    let passwordEl = document.getElementById("loginpassword");
+    let name =nameEl.value;
+    let password = passwordEl.value;
+    if (name.length === 0){
+        nameEl.focus;
+    }
+    else if (password.length === 0){
+        passwordEl.focus;
+    }
+    // let remember = document.getElementById("remembermecheckbox").checked;
+    // console.log(remember);
     console.log(name, password);
+    document.getElementById('loginscreen').style.display='none';
 }
 
 //click on the login button on the non-modal screen
@@ -1217,18 +1231,30 @@ function createAccount(){
     let passwordConfirmation = document.getElementById("confirmcreateaccountpassword").value;
     if (password.length<6){
         console.log("password too short");
+        //make this prompt visible to the user.
         password.focus;
         password.value = "";
+        return;
     }
-    if (password === passwordConfirmation){
+    else if (password === passwordConfirmation){
         console.log(username, password);
+        //check username for validity
+        //compare username for doubled copies in database
+        //if doubled copy exists, prompt user to try a new username
+        //if username and password are kosher, create the account and push it to the database
+        //check the model file to review the user card (includes stuff like tests taken etc.)
+        //give the user a succesful creation message
+        //change the top-right hand corner message to "logged in as XYZ"
     }
     else if (password != passwordConfirmation){
         console.log("passwords don't match!");
+        //make this prompt visible to the user
         password.focus;
+        //make the focus actually work (it doesn't currently)
         password.value = "";
         passwordConfirmation = "";
     }
+    document.getElementById('createaccountscreen').style.display='none';
 }
 
 //applies a variety of changes to the site based on cookie permission status.

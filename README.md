@@ -288,18 +288,35 @@ Ideally, create a new collection on MongoDB. However, it's not mandatory: If you
 Incorporate Favicons:
     <!-- <link rel="icon" type="image/png" href="favicon.png"/> -->
 paste this into your <head> tag. Then make sure that a png named favicon is in your public folder.
+The favicon has to be less than 1kb. (really small)
+
+/// How to Git Branch (create a new branch for your project)
+1) commit everything.
 
 TO DO:
 
-exit modal console errors check/fix
-Paypal donations :)?
-Mail system?
+createAccount() function: full functionality please.
+forgotPassword() function: full functionality please.
+mobile phone button formatting and styling
+Make modal submit buttons close the modal
+weird afterimage clicking cancel buttons
+get the loginForm function focus working
+remove the rememberme function
+Suddenly getting 56 issues in the issues panel wtf?
+Organize the answersheet into tables in the printout (ugh)
+buttons: rounded corners styling
+mouse-over buttons changes to the finger icon (but NOT on the fake disabled button!)
+make a favicon with transparencies under 1kb
+add functionality to the login and register screens
+Paypal donations :)
+Mailme system for the forgot password functionality
 sort out multiple readings for single characters (eg de/dei)
 hover tooltips on test types.
 Add 'review your least known characters' flashcard option.
 Add 'Hard test mode' test option.
-fix login cookie bugs (ensure correct behaviour)
 the password.focus and password field clear function doesnt work.
+
+GENERAL CLEANUP & ESA FEEDBACK:
 general code review and cleanup: consider Esa's feedback:
 	- You could come up with more descriptive class names (instead of button1, button2, ...). This helps future developers (including yourself) understand the code when making changes.
 	- The state management looks a bit complicated. Consider having a "single source of truth" for the state and everything else be just a representation of it.
