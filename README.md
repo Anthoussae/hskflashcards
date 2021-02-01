@@ -295,6 +295,9 @@ The favicon has to be less than 1kb. (really small)
 2) git branch in cmd tells you how many branches you have, * is the one you're on.
 3) git branch BRANCHNAME creates a new branch (in root)
 4) git checkout BRANCHNAME switches you to that branch.
+5) git push no longer works without specifying the branch (once you are pushing anything other than main)
+6) to push up a branch, use:
+	git push origin BRANCHNAME
 5) I'm on objectVersion.
 
 TO DO:
