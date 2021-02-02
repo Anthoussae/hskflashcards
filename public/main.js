@@ -13,10 +13,6 @@ document.onkeyup = function(e) {
     }
 }
 
-//comment 1
-//comment 2
-//comment 3
-//comment 5
 //cookie warning: disabled by default awrsfdsf66666
 let cookiePermission = false;
 

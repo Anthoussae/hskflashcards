@@ -309,7 +309,8 @@ The favicon has to be less than 1kb. (really small)
 	-new lines are brought in without conflict.
 	-branch1 remains unchanged.
 	-main will be changed.
-	-if there is a conflict on a line,  
+	-if there is a conflict on a line,  the program will highlight these and you can resolve conflicts as you please.
+8) remember to git add and commit after resolving the conflicts.
 
 
 TO DO:
