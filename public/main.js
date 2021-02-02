@@ -1213,12 +1213,16 @@ function loginForm(){
 
 //click on the login button on the non-modal screen
 function loginButton(){
+    alert('not implemented yet');
+    return;
     document.getElementById('loginscreen').style.display='block';
     document.getElementById("loginname").focus();
 }
 
 //generates the account creation modal screen
 function createAccountButton(){
+    alert('not implemented yet');
+    return;
     document.getElementById('createaccountscreen').style.display='block';
     document.getElementById("createaccountname").focus();
 }
